@@ -1,0 +1,125 @@
+﻿@model OutHospital
+@inject DropDown.IDonorDDL donorDDL
+@{
+    ViewData["Title"] = "Add Hospital";
+
+    ViewData["OHospitalActive"] = "active";
+
+
+}
+@inject DropDown.IBloodBankDDL bloodBankDDL
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">@ViewData["Title"]</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+@using (Html.BeginForm("Add", "OutHospital", FormMethod.Post, new { area = "BloodBankSystem", @class = "forms-sample", id = "frmProfileInfo" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-12">
+            <div class="mt-2 alert alert-danger  @(TempData["ErrorMessage"] == null ? "d-none" : "")">
+                @(TempData["ErrorMessage"])
+            </div>
+            <div class="mt-2 alert alert-success  @(TempData["SuccessMessage"] == null ? "d-none" : "")">
+                @(TempData["SuccessMessage"])
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group row d-none">
+                        @Html.LabelFor(model => model.HospitalID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.HospitalID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.HospitalID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.HospitalName, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.HospitalName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.HospitalName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @rows = "5" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                  
+                 
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "col-4 col-form-label" })
+                            <div class="col-7">
+                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "col-4 col-form-label" })
+                            <div class="col-7">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                   
+
+                    <div class="form-group row  ">
+                        @Html.LabelFor(model => model.LocationID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.DropDownList("LocationID", await bloodBankDDL.LocationList(), "(Select Location)", htmlAttributes: new { @class = "" })
+                            @Html.ValidationMessageFor(model => model.LocationID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Add" class="btn btn-primary mr-2 mb-2 mb-md-0 text-white" />
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+   
+
+}
+
+
+
+
+
+

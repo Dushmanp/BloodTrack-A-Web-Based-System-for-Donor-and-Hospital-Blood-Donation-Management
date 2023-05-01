@@ -1,0 +1,243 @@
+﻿@model DonorInfo
+@inject DropDown.IDonorDDL donorDDL
+@{
+    ViewData["Title"] = "Register  - Blood Bank";
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="~/lib/core/core.css">
+    <link rel="stylesheet" href="~/fonts/feather-font/css/iconfont.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/custom-css/form.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/custom-css/header.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/custom-css/html.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/custom-css/sidebar.css" asp-append-version="true">
+
+    <link rel="shortcut icon" href="~/favicon.ico" />
+</head>
+<body class="sidebar-dark">
+    <div class="main-wrapper">
+        <div class="page-wrapper full-page">
+            <div class="page-content d-flex align-items-center justify-content-center">
+
+                <div class="row w-100 mx-0 auth-page">
+                    <div class="col-md-8 col-xl-8 mx-auto">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title">New Donor Register</h6>
+								@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "forms-sample", id = "frmRegister" }))
+								{
+									@Html.AntiForgeryToken()
+
+									
+									<div class="row">
+										<div class="mt-2 alert alert-danger  @(ViewData["ErrorMessage"] == null ? "d-none" : "")">
+											@(ViewData["ErrorMessage"])
+										</div>
+										<div class="form-group d-none">
+											@Html.LabelFor(model => model.DonorID)
+											@Html.EditorFor(model => model.DonorID, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your ID", autofocus = "autofocus" } })
+											@Html.ValidationMessageFor(model => model.DonorID, "", new { @class = "text-danger" })
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												@Html.LabelFor(model => model.Name)
+												@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your Name" } })
+												@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+											</div>
+										</div><!-- Col -->
+										
+									</div><!-- Row -->
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="form-group">
+												@Html.LabelFor(model => model.NIC)
+												@Html.EditorFor(model => model.NIC, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your NIC" } })
+												@Html.ValidationMessageFor(model => model.NIC, "", new { @class = "text-danger" })
+											</div>
+										</div><!-- Col -->
+										<div class="col-sm-6">
+											<div class="form-group">
+												@Html.LabelFor(model => model.DateOfBirth )
+
+												@Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+												@Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+												<div id="age-error" class="text-danger" style="display:none;">You must be 18 or older to register</div>
+											</div>
+										</div><!-- Col -->
+									</div><!-- Row -->
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="form-group">
+												@Html.LabelFor(model => model.PhoneNumber)
+												@Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your Phone Number" } })
+												@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+											</div>
+										</div><!-- Col -->
+										<div class="col-sm-6">
+											<div class="form-group">
+												@Html.LabelFor(model => model.OtherPhoneNumber)
+												@Html.EditorFor(model => model.OtherPhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Optional" } })
+												@Html.ValidationMessageFor(model => model.OtherPhoneNumber, "", new { @class = "text-danger" })
+											</div>
+										</div><!-- Col -->
+									</div>
+
+									<!-- Row -->
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="form-group">
+												@Html.LabelFor(model => model.Email)
+												@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your Email" } })
+												@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+											</div>
+										</div><!-- Col -->
+										<div class="col-sm-6">
+											<div class="form-group">
+												@Html.LabelFor(model => model.Password)
+												@Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your Password" } })
+												@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+											</div>
+										</div><!-- Col -->
+									</div><!-- Row -->
+
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="form-group">
+												@Html.LabelFor(model => model.Address)
+												@Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your Address", @rows = 5 } })
+												@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+											</div>
+										</div><!-- Col -->
+										 
+									</div>
+
+									<!-- Row -->
+
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="form-group">
+												@Html.LabelFor(model => model.DonationFrequency)
+												@Html.DropDownList("DonationFrequency", donorDDL.FrequencyList(),"Select Donation Frequency", htmlAttributes: new { @class = "form-control", data_toggle = "select2" })
+												@Html.ValidationMessageFor(model => model.DonationFrequency, "", new { @class = "text-danger" })
+											</div>
+										</div><!-- Col -->
+										<div class="col-sm-6">
+											<div class="form-group">
+												@Html.LabelFor(model => model.Occupation)
+												@Html.DropDownList("Occupation", donorDDL.occupationTypeList(), "Select Occuption", htmlAttributes: new { @class = "form-control", data_toggle = "select2" })
+												@Html.ValidationMessageFor(model => model.Occupation, "", new { @class = "text-danger" })
+											</div>
+										</div><!-- Col -->
+									</div>
+
+									<div class="row ">
+										<div class="col-sm-6">
+											<div class="form-group">
+												@Html.LabelFor(model => model.MaritalStatus)
+												@Html.DropDownList("MaritalStatus", donorDDL.maritalStatusList(), "Select Marital Status", htmlAttributes: new { @class = "form-control", data_toggle = "select2" })
+												@Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })
+											</div>
+										</div><!-- Col -->
+										<div class="col-sm-6">
+											<div class="form-group">
+												@Html.LabelFor(model => model.Gender)
+												@Html.DropDownList("Gender", donorDDL.genderList(), "Select Gender ", htmlAttributes: new { @class = "form-control", data_toggle = "select2" })
+												@Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+											</div>
+										</div><!-- Col -->
+									</div>
+									<!-- Row -->
+
+									<div class="row d-none">
+										<div class="col-sm-6">
+											<div class="form-group">
+												@Html.LabelFor(model => model.Location)
+												@Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your Location" } })
+												@Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+											</div>
+										</div><!-- Col -->
+										<div class="col-sm-6">
+											<div class="form-group">
+												@Html.LabelFor(model => model.BloodType)
+												@Html.EditorFor(model => model.BloodType, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your Blood Type" } })
+												@Html.ValidationMessageFor(model => model.BloodType, "", new { @class = "text-danger" })
+											</div>
+										</div><!-- Col -->
+									</div>
+									<!-- Row -->
+
+									<div class="mt-3">
+										<input type="submit" value="Register" class="btn btn-danger mr-2 mb-2 mb-md-0 text-white" />
+										<a href="~/Account/Login" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
+
+											Login
+										</a>
+									</div>
+
+								 
+								}
+ 
+							</div>
+						</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/core/core.js"></script>
+    <script src="~/lib/feather-icons/feather.min.js"></script>
+    <script src="~/js/template.js"></script>
+
+    <script src="~/js/custom.js" asp-append-version="true"></script>
+ 
+
+		<script>
+
+	 
+		$(document).ready(function () {
+			$('#frmRegister').submit(function (event) {
+				var dob = $('#DateOfBirth').val();
+				var age = calculateAge(dob);
+				if (age < 18) {
+					event.preventDefault();
+					$('#age-error').show();
+				}
+			});
+		});
+
+		function calculateAge(dateString) {
+			var today = new Date();
+			var birthDate = new Date(dateString);
+			var age = today.getFullYear() - birthDate.getFullYear();
+			var m = today.getMonth() - birthDate.getMonth();
+			if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+				age--;
+			}
+			return age;
+		}
+
+
+		 
+	</script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+</body>
+</html>
+
+
+
+
+

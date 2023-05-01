@@ -1,0 +1,29 @@
+﻿.form-group.row {
+    padding: 4px 0;
+}
+
+.form-group label {
+    margin-bottom: 0.0rem;
+}
+
+select.form-control, select {
+    color: inherit;
+}
+
+input[type='number'] {
+    width: 120px;
+}
+
+input:focus {
+    outline-color: #ff3366;
+}
+
+.input-number {
+    width: 120px; /* Set the width to match that of a number input box */
+}
+
+.blood-bag-input {
+    max-width: 100px;
+}
+
+ 

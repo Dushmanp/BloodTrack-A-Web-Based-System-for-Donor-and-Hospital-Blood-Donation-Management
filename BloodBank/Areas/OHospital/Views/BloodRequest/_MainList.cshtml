@@ -1,0 +1,66 @@
+﻿@model IEnumerable<BloodRequest>
+
+@{
+    Layout = null;
+
+}
+
+<div class="table-responsive">
+    <table class="table table-centered table-nowrap table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.BloodRequestID)</th>
+                <th style="width:70px;">Action</th>
+                <th>@Html.DisplayNameFor(model => model.PatientName)</th>
+                <th>@Html.DisplayNameFor(model => model.BloodGroup)</th>
+                <th>@Html.DisplayNameFor(model => model.DoctorInCharge)</th>
+             
+                <th>@Html.DisplayNameFor(model => model.DateOfRequest)</th>
+                <th>@Html.DisplayNameFor(model => model.DateTimeOfRequirement)</th>
+
+                <th>@Html.DisplayNameFor(model => model.BloodBankCentreID)</th>
+                <th>@Html.DisplayNameFor(model => model.Status)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><a class="" href="@Url.Action("Details", "BloodRequest", new { Area = "OHospital", id = item.BloodRequestID })">@Html.DisplayFor(modelItem => item.BloodRequestID)</a></td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-sm dropdown-toggle btn-secondary btn-icon-text" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i data-feather="more-vertical" class="btn-icon-prepend"></i> Action
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2" style="">
+                                <a class="dropdown-item" href="@Url.Action("Details", "BloodRequest", new { Area = "OHospital", id = item.BloodRequestID })">Detail View</a>
+                               @if (item.Status != "RO" && item.Status != "RB" && item.Status != "DL")
+                                {
+                                    <a href="javascript:void(0);" class="dropdown-item" onclick="ConfirmReject('@item.BloodRequestID','@Url.Action("Reject","BloodRequest", new { Area = "OHospital" })')">Rejected</a>
+                                }
+                                @if (item.Status != "RO" && item.Status != "RB" && item.Status != "DL")
+                                {
+                                    <a href="javascript:void(0);" class="dropdown-item" onclick="ConfirmDelivered('@item.BloodRequestID','@Url.Action("Delivered","BloodRequest", new { Area = "OHospital" })')">Delivered</a>
+                                }
+
+
+                                
+                            </div>
+                        </div>
+                    </td>
+ 
+                    <td>@Html.DisplayFor(modelItem => item.PatientName)</td>
+             
+                    <td>@Html.DisplayFor(modelItem => item.BloodGroup)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DoctorInCharge)</td>
+       
+                    <td>@item.DateOfRequest.ToString("dd MMMM yyyy")</td>
+                    <td>@item.DateTimeOfRequirement.ToString("dd MMMM yyyy")</td>
+ 
+                    <td>@Html.DisplayFor(modelItem => item.BloodBankCentreName)</td>
+                    <td><span class="badge badge-@item.StatusClass">@item.StatusText</span></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div> 

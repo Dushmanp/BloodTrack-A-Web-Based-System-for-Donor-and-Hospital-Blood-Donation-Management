@@ -1,0 +1,12 @@
+F:\Asure Final Project\BB.DBAccess\bin\Release\net5.0\BB.DBAccess.deps.json
+F:\Asure Final Project\BB.DBAccess\bin\Release\net5.0\BB.DBAccess.dll
+F:\Asure Final Project\BB.DBAccess\bin\Release\net5.0\BB.DBAccess.pdb
+F:\Asure Final Project\BB.DBAccess\obj\Release\net5.0\BB.DBAccess.csproj.AssemblyReference.cache
+F:\Asure Final Project\BB.DBAccess\obj\Release\net5.0\BB.DBAccess.GeneratedMSBuildEditorConfig.editorconfig
+F:\Asure Final Project\BB.DBAccess\obj\Release\net5.0\BB.DBAccess.AssemblyInfoInputs.cache
+F:\Asure Final Project\BB.DBAccess\obj\Release\net5.0\BB.DBAccess.AssemblyInfo.cs
+F:\Asure Final Project\BB.DBAccess\obj\Release\net5.0\BB.DBAccess.csproj.CoreCompileInputs.cache
+F:\Asure Final Project\BB.DBAccess\obj\Release\net5.0\BB.DBAccess.dll
+F:\Asure Final Project\BB.DBAccess\obj\Release\net5.0\refint\BB.DBAccess.dll
+F:\Asure Final Project\BB.DBAccess\obj\Release\net5.0\BB.DBAccess.pdb
+F:\Asure Final Project\BB.DBAccess\obj\Release\net5.0\ref\BB.DBAccess.dll

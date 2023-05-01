@@ -1,0 +1,15 @@
+F:\Asure Final Project\Admin.Account\bin\Release\net5.0\Admin.Account.deps.json
+F:\Asure Final Project\Admin.Account\bin\Release\net5.0\Admin.Account.dll
+F:\Asure Final Project\Admin.Account\bin\Release\net5.0\Admin.Account.pdb
+F:\Asure Final Project\Admin.Account\bin\Release\net5.0\BB.DBAccess.dll
+F:\Asure Final Project\Admin.Account\bin\Release\net5.0\BB.DBAccess.pdb
+F:\Asure Final Project\Admin.Account\obj\Release\net5.0\Admin.Account.csproj.AssemblyReference.cache
+F:\Asure Final Project\Admin.Account\obj\Release\net5.0\Admin.Account.GeneratedMSBuildEditorConfig.editorconfig
+F:\Asure Final Project\Admin.Account\obj\Release\net5.0\Admin.Account.AssemblyInfoInputs.cache
+F:\Asure Final Project\Admin.Account\obj\Release\net5.0\Admin.Account.AssemblyInfo.cs
+F:\Asure Final Project\Admin.Account\obj\Release\net5.0\Admin.Account.csproj.CoreCompileInputs.cache
+F:\Asure Final Project\Admin.Account\obj\Release\net5.0\Admin.Account.csproj.CopyComplete
+F:\Asure Final Project\Admin.Account\obj\Release\net5.0\Admin.Account.dll
+F:\Asure Final Project\Admin.Account\obj\Release\net5.0\refint\Admin.Account.dll
+F:\Asure Final Project\Admin.Account\obj\Release\net5.0\Admin.Account.pdb
+F:\Asure Final Project\Admin.Account\obj\Release\net5.0\ref\Admin.Account.dll

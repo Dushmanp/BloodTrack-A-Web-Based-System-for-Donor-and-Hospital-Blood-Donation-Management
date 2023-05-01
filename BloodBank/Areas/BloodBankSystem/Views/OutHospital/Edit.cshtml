@@ -1,0 +1,196 @@
+﻿@model OutHospital
+@inject DropDown.IDonorDDL donorDDL
+@{
+    ViewData["Title"] = "Edit Hospital Information";
+
+    ViewData["DonarDetailsActive"] = "active";
+
+
+}
+@inject DropDown.IBloodBankDDL bloodBankDDL
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">@ViewData["Title"]</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+@using (Html.BeginForm("Edit", "OutHospital", FormMethod.Post, new { area = "BloodBankSystem", @class = "forms-sample", id = "frmProfileInfo" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-12">
+            <div class="mt-2 alert alert-danger  @(TempData["ErrorMessage"] == null ? "d-none" : "")">
+                @(TempData["ErrorMessage"])
+            </div>
+            <div class="mt-2 alert alert-success  @(TempData["SuccessMessage"] == null ? "d-none" : "")">
+                @(TempData["SuccessMessage"])
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group row d-none">
+                        @Html.LabelFor(model => model.HospitalID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.HospitalID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.HospitalID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.HospitalName, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.HospitalName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.HospitalName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", rows = "5" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4"></div>
+                        <div class="col-7">
+                            @Html.CheckBoxFor(model => model.UseAuthentication, new Dictionary<string, object> { { "id", "chkAuth" } })
+                            @Html.LabelFor(model => model.UseAuthentication)
+                            @Html.ValidationMessageFor(model => model.UseAuthentication, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div id="authSection" style="display:none" class="list-group-item list-group-item-warning">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "col-4 col-form-label" })
+                            <div class="col-7">
+                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "col-4 col-form-label" })
+                            <div class="col-7">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "col-4 col-form-label" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <br />
+
+                 
+
+
+                    <div class="form-group row  ">
+                        @Html.LabelFor(model => model.LocationID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.DropDownList("LocationID", await bloodBankDDL.LocationList(), "(Select Location)", htmlAttributes: new { @class = "",  })
+                            @Html.ValidationMessageFor(model => model.LocationID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Update" class="btn btn-primary mr-2 mb-2 mb-md-0 text-white" />
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+
+        $(document).ready(function () {
+            if ($('#chkAuth').is(':checked')) {
+                $('#authSection').fadeIn(1000, "swing");
+            }
+            else {
+                $('#authSection').fadeOut(500, "swing");
+            }
+
+            $('#frmProfileInfo').submit(function (event) {
+                var dob = $('#DateOfBirth').val();
+                var age = calculateAge(dob);
+                if (age < 18) {
+                    event.preventDefault();
+                    $('#age-error').show();
+                }
+            });
+        });
+
+
+        $("#chkAuth").click(function (event) {
+            if ($('#chkAuth').is(':checked')) {
+                $('#authSection').fadeIn(500, "swing");
+                $('#newID').focus();
+
+            }
+            else {
+                $('#authSection').fadeOut(500, "swing");
+            }
+        });
+
+
+        function calculateAge(dateString) {
+            var today = new Date();
+            var birthDate = new Date(dateString);
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+
+
+    </script>
+
+}
+
+
+
+
+
+

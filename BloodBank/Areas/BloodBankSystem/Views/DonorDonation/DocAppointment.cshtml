@@ -1,0 +1,384 @@
+﻿@model DoctorInfoSearchView
+@{
+    ViewData["Title"] = "Doctor Appointment for Donor";
+
+    ViewData["AppointmentActive"] = "active";
+}
+
+@inject DropDown.ICommonDDL CommonDDL
+@inject DropDown.IBloodBankDDL bloodBankDDL
+@inject DropDown.IDonorDDL donnorDDL
+<partial name="_ConfirmDelete" />
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="row justify-content-start float-right mr-0 mt-2 d-none">
+
+                <a href="@Url.Action("Index","SampleCategory")" class="ml-1">
+                    <div class="card-box  bg-white p-1 pr-2 m-0">
+                        <p class="text- small mb-0">Figure 1</p>
+                        <p class="text-dark m-0 mb-0">0.00</p>
+                    </div>
+                </a>
+
+                <a href="@Url.Action("Index","Customer")" class="ml-1">
+                    <div class="card-box  bg-white p-1 pr-2 m-0">
+                        <p class="text- small mb-0">Figure 2 </p>
+                        <p class="text-dark m-0 mb-0">0.0</p>
+                    </div>
+                </a>
+
+            </div>
+            <h4 class="page-title alert">@ViewData["Title"] (@Model.RecordCount)</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row @(TempData["ErrorMessage"] == null ? "d-none" : "")">
+    <div class="col-12">
+        <div class="mt-2 alert alert-danger  @(TempData["ErrorMessage"] == null ? "d-none" : "")">
+            @(TempData["ErrorMessage"])
+        </div>
+    </div>
+</div>
+
+
+<div class="row @(TempData["SuccessMessage"] == null ? "d-none" : "")">
+    <div class="col-12">
+        <div class="mt-2 alert alert-success  @(TempData["SuccessMessage"] == null ? "d-none" : "")">
+            @(TempData["SuccessMessage"])
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body p-2 p-md-3">
+ 
+
+                <div class="row justify-content-md-start justify-content-center">
+
+                    <div class="p-1 pl-0">
+                        @Html.EditorFor(model => model.KeyW, new { htmlAttributes = new { @class = "form-control", placeholder = "Search", id = "txtKeyW", autofocus = "autofocus", onkeyup = "SearchStart()" } })
+                        @Html.ValidationMessageFor(model => model.KeyW, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="p-1 pl-0">
+                        @Html.DropDownList("BloodBankCentreID",await bloodBankDDL.BloodBankCentreList(), "(All Blood Bank)", htmlAttributes: new { @class = "", id = "cmbBloodBankCentreID" })
+                    </div>
+                    <div class="p-1 pl-0">
+                        @Html.DropDownList("LocationID",await bloodBankDDL.LocationList(), "(All Location)", htmlAttributes: new { @class = "", id = "cmbLocationID" })
+                    </div>
+                    <div class="p-1 pl-0">
+                        @Html.DropDownList("Specialty", bloodBankDDL.SpecialtyList(), "(All Specialty)", htmlAttributes: new { @class = "", id = "cmbSpecialty" })
+                    </div>
+
+                    <div class="p-1 pl-0">
+                        @Html.DropDownList("Gender", donnorDDL.genderList(), "(All Gender)", htmlAttributes: new { @class = "", id = "cmbGender" })
+                    </div>
+
+                </div>
+
+                <div id="divLoad" class="d-flex justify-content-center mt-2 position-absolute w-100">
+                    <div id="spnLoad" class="spinner-border " role="status"></div>
+                </div>
+
+                <div id="divRecords" class="m-0 p-0 mt-2"></div>
+
+                <input type="hidden" id="txtRecordCount" value="@Model.RecordCount" />
+                <input type="hidden" id="txtPageSize" value="@Model.PageSize" />
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-xl" id="modal_Donation" tabindex="-1" role="dialog"
+     aria-labelledby="scrollableModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable modal" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="scrollableModalTitle">Add Donor to Doctor</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body modal-min-height">
+
+                <div class="row">
+                    <div class="col-lg-8">
+
+
+                        <form class="form-inline">
+                            <div class="form-group">
+
+
+
+                                <label for="inputPassword2" class="mr-2">Doctor: </label>
+                                <label id="lblDoctorName"></label>
+
+                               
+                                <label class="d-none" id="lblDoctorID"></label>
+
+    
+                              
+                            </div>
+                        </form>
+                    </div>
+
+                </div> <!-- end row -->
+
+                <div class="row">
+
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div id="divTickRecord" class="table-responsive">
+                                    <!-- Place your table content here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    
+                    <div id="divLoadTick" class="d-flex justify-content-center mt-2 position-absolute w-100">
+                        <div id="spnLoadTick" class="spinner-border " role="status"></div>
+                    </div>
+
+                </div>
+                @using (Html.BeginForm("AppointDoctor", "DonorDonation", FormMethod.Post, new { id = "frmAddDonation" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="d-none  ">
+                        @Html.TextAreaFor(model => model.ItemListText, 3, 120, htmlAttributes: new { @class = "form-control", id = "txtItemDonList", Placeholder = "Item Text", style = "width: 100%; max-width: 100%;" })
+                        @Html.ValidationMessageFor(model => model.ItemListText, "", new { @class = "text-danger" })
+                    </div>
+
+                   
+
+                    <div class="modal-footer pt-3 ">
+                        <button type="submit" class="btn btn-primary" disabled="disabled" id="btnAdd" onclick="TickRecord()">Add</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                    </div>
+
+
+
+                }
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+
+
+@await Html.PartialAsync("_Pagination", Model.PaginationList)
+
+@section Scripts {
+        //@{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+
+    <script src="~/js/pagination.js" asp-append-version="true"></script>
+
+    <script title="Main">
+
+        var Page = 1;
+        var PageURL = '/BloodBankSystem/DonorDonation/_MainListDoc';
+
+        $(document).ready(function () {
+
+            LoadPage(1);
+            $('#modal_Donation').modal('hide');
+        });
+
+        function GetData(pageNo) {
+            var KeyW = $("#txtKeyW").val();
+            var LocationID = $("#cmbLocationID").val();
+            var BloodBankCentreID = $("#cmbBloodBankCentreID").val();
+            var Specialty = $("#cmbSpecialty").val();
+            var Gender = $("#cmbGender").val();
+            Page = pageNo;
+            var PageSize = $("#txtPageSize").val();
+
+            var data = {
+                KeyW: KeyW,
+                BloodBankCentreID: BloodBankCentreID,
+                LocationID: LocationID,
+                Specialty: Specialty,
+                Gender: Gender,
+                Page: Page,
+                PageSize: PageSize
+            };
+
+            return data;
+        }
+
+
+    </script>
+
+
+    <script title="Search">
+
+        function SearchStart() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("txtKeyW");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("tblBody");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                td1 = tr[i].getElementsByTagName("td")[1];
+
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    txtValue = txtValue + ' ' + td1.textContent || td1.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        $("#txtKeyW").on("keydown", function search(e) {
+            if (e.keyCode == 13) {
+                Search();
+            }
+        });
+
+
+        $("#cmbLocationID").change(function (event) {
+            Search();
+        });
+
+        $("#cmbBloodBankCentreID").change(function (event) {
+            Search();
+        })
+
+        $("#cmbSpecialty").change(function (event) {
+            Search();
+        })
+
+        $("#cmbGender").change(function (event) {
+            Search();
+        })
+
+        function Search() {
+
+            var KeyW = $("#txtKeyW").val();
+            var LocationID = $("#cmbLocationID").val();
+            var BloodBankCentreID = $("#cmbBloodBankCentreID").val();
+            var Specialty = $("#cmbSpecialty").val();
+            var Gender = $("#cmbGender").val();
+
+            var url = '@Url.Action("DocAppointment", "DonorDonation", new { area = "BloodBankSystem" })';
+
+            var ParamPart = "&";
+            ParamPart = ParamPart + ((KeyW != "") ? '&KeyW=' + KeyW : '');
+            ParamPart = ParamPart + ((LocationID != "") ? '&LocationID=' + LocationID : '');
+            ParamPart = ParamPart + ((BloodBankCentreID != "") ? '&BloodBankCentreID=' + BloodBankCentreID : '');
+            ParamPart = ParamPart + ((Specialty != "") ? '&Specialty=' + Specialty : '');
+            ParamPart = ParamPart + ((Gender != "") ? '&Gender=' + Gender : '');
+            ParamPart = ParamPart.replace("&&", "");
+
+            window.location.href = url + '?' + ParamPart;
+            event.preventDefault();
+        };
+
+    </script>
+
+    <script title="Task">
+
+        function LoadTickSaveDonorData(DoctorID, FullName) {
+            $('#modal_Donation').modal('show');
+            var url = '/BloodBankSystem/DonorDonation/_MainListDonation';
+            $('#spnLoad').hide();
+
+            var AppendDIV = "divTickRecord";
+            $('#' + AppendDIV).css('visibility', 'hidden');
+            $('#divLoadTick').show();
+            $('#spnLoadTick').show();
+
+            setTimeout(function () {
+                $.ajax({
+
+                    type: "GET",
+                    url: url,
+                    data: { KeyW: "" },
+                    success: function (result) {
+                        $('#' + AppendDIV).html(result);
+                        $('#divLoadTick').hide();
+                        $('#spnLoadTick').hide();
+                        $('#' + AppendDIV).css('visibility', 'visible');
+                        $('#lblDoctorName').html(FullName);
+                        $('#lblDoctorID').html(DoctorID);
+
+                    },
+                    error: function (result) {
+                        alert(result.responseText);
+                    }
+                })
+            }, 500);
+        }
+
+
+        $(document).on("change", ".chkDonTick", function () {
+            ItemListDonTextFormation()
+        });
+
+        var ItemListDonTextFormation = function () {
+            var TextList = "";
+            var donotionIDs = []; // Initialize an array to hold the selected DonotionIDs
+
+            $("#tblSelectBodyDon").find('tr').each(function () {
+                if ($(this).find('.chkDonTick').is(':checked')) { // Check if the checkbox is checked
+                    var donotionID = $(this).attr('id').split('_')[1]; // Get the DonotionID from the row ID
+                    donotionIDs.push(donotionID); // Add the DonotionID to the array
+                    var DoctorID =   $('#lblDoctorID').html();
+                     if (TextList != "") {
+                            TextList = TextList + "[LINE]";
+                    }
+
+                    TextList = TextList + donotionID + "[TAB]" + DoctorID;
+
+                }
+            });
+
+            // Set the value of the txtItemList to the selected DonotionIDs
+            $("#txtItemDonList").val(TextList); // Use ',' as the separator between the DonotionIDs
+            ItemListTextValidation();
+        };
+
+
+        var ItemListTextValidation = function () {
+           
+            var ItemDonList = $("#txtItemDonList").val();
+
+            if (ItemDonList) {
+                $("#btnAdd").removeAttr("disabled");
+            } else {
+                $("#btnAdd").attr("disabled", "disabled");
+            }
+
+        }
+       
+    </script>
+
+}
+
+
+

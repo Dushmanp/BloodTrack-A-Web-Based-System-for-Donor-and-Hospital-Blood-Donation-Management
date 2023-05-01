@@ -1,0 +1,205 @@
+﻿@model BloodRequestDetailView
+
+@{
+    ViewData["Title"] = "Add Blood Request";
+
+    ViewData["RequestActive"] = "active";
+ 
+}
+
+@inject DropDown.IDonorDDL donorDDL
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmAddRequest" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="text-primary mb-3">Blood Requesting Info</h6>
+                    <div class="form-group row d-none">
+                        @Html.LabelFor(model => model.bloodRequest.BloodRequestID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodRequest.BloodRequestID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodRequest.BloodRequestID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodRequest.PatientName, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodRequest.PatientName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodRequest.PatientName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodRequest.PatientAge, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodRequest.PatientAge, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodRequest.PatientAge, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodRequest.PatientSex, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.DropDownList("bloodRequest.PatientSex", donorDDL.genderList(),  "Select Sex ", htmlAttributes: new { @class = "form-control", data_toggle = "select2" })
+                            @Html.ValidationMessageFor(model => model.bloodRequest.PatientSex, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodRequest.BloodGroup, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.DropDownList("bloodRequest.BloodGroup", donorDDL.bloodTypeList(),  "Select Type ", htmlAttributes: new { @class = "form-control", data_toggle = "select2" })
+                            @Html.ValidationMessageFor(model => model.bloodRequest.BloodGroup, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodRequest.DoctorInCharge, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodRequest.DoctorInCharge, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodRequest.DoctorInCharge, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                  
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodRequest.DoctorContact, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodRequest.DoctorContact, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodRequest.DoctorContact, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodRequest.ReasonOfTransfusion, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodRequest.ReasonOfTransfusion, new { htmlAttributes = new { @class = "form-control",@rows="10" } })
+                            @Html.ValidationMessageFor(model => model.bloodRequest.ReasonOfTransfusion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="text-primary mb-3">Blood  Details</h6>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="ErrorMessage" class="mt-2 alert alert-danger  @(TempData["ErrorMessage"] == null ? "d-none" : "")">
+                                @(TempData["ErrorMessage"])
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row  d-none">
+                        @Html.LabelFor(model => model.bloodrequestDetails.BloodRequestDetailsID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodrequestDetails.BloodRequestDetailsID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodrequestDetails.BloodRequestDetailsID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodRequest.DateTimeOfRequirement, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodRequest.DateTimeOfRequirement, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodRequest.DateTimeOfRequirement, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodrequestDetails.WholeBloodUnit, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodrequestDetails.WholeBloodUnit, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodrequestDetails.WholeBloodUnit, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodrequestDetails.PackedCellUnit, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodrequestDetails.PackedCellUnit, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodrequestDetails.PackedCellUnit, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodrequestDetails.FreshFrozenPlasmaUnit, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodrequestDetails.FreshFrozenPlasmaUnit, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodrequestDetails.FreshFrozenPlasmaUnit, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodrequestDetails.PlateletComponentsUnit, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodrequestDetails.PlateletComponentsUnit, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodrequestDetails.PlateletComponentsUnit, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodrequestDetails.SingleDonorPlateletUnit, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodrequestDetails.SingleDonorPlateletUnit, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodrequestDetails.SingleDonorPlateletUnit, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodrequestDetails.CryoPoorPlasmaUnit, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodrequestDetails.CryoPoorPlasmaUnit, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodrequestDetails.CryoPoorPlasmaUnit, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button class="mt-2 btn btn-primary " type="submit">Send Request</button>
+    </div>
+}
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script>
+        $(document).ready(function () {
+            $("#frmAddRequest").submit(function (event) {
+                event.preventDefault(); // prevent form submission
+
+                // get the values of each input field
+                var wholeBloodUnit = $("#bloodrequestDetails_WholeBloodUnit").val();
+                var packedCellUnit = $("#bloodrequestDetails_PackedCellUnit").val();
+                var freshFrozenPlasmaUnit = $("#bloodrequestDetails_FreshFrozenPlasmaUnit").val();
+                var plateletComponentsUnit = $("#bloodrequestDetails_PlateletComponentsUnit").val();
+                var singleDonorPlateletUnit = $("#bloodrequestDetails_SingleDonorPlateletUnit").val();
+                var cryoPoorPlasmaUnit = $("#bloodrequestDetails_CryoPoorPlasmaUnit").val();
+
+                // check if at least one field is not empty
+                if (wholeBloodUnit || packedCellUnit || freshFrozenPlasmaUnit || plateletComponentsUnit || singleDonorPlateletUnit || cryoPoorPlasmaUnit) {
+                    $("#frmAddRequest").unbind("submit").submit(); // submit the form if at least one field is not empty
+                } else {
+                    $("#ErrorMessage").removeClass("d-none").text("Please enter at least one blood unit."); // show an error message if no field is entered
+                }
+            });
+        });
+
+    </script>
+}
+
+  

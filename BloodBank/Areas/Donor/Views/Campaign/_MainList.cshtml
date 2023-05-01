@@ -1,0 +1,31 @@
+﻿@model IEnumerable<BloodDonationCampaign>
+@inject DropDown.ICommonDDL CommonDDL
+@{
+    Layout = null;
+}
+ 
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card">
+                <img src="~/Uploads/@(CommonDDL.CheckFile(item.CampaignID))" onclick="showImageModal('@item.CampaignID')" class="card-img-top custom-img" id="img_@item.CampaignID" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>Organizer: </strong>@Html.DisplayFor(modelItem => item.OrganizerName)</h5>
+                    <p class="card-text">
+                        <strong>Blood Bank Unit: </strong>@Html.DisplayFor(modelItem => item.BloodBankCentre) (@Html.DisplayFor(modelItem => item.Location))<br>
+                        <strong>Contact No: </strong>@Html.DisplayFor(modelItem => item.PhoneNumber) <br>
+                        <strong>Event Date: </strong>@item.StartDate.ToString("MMMM dd 'rd of' yyyy")<br>
+                        <strong>Address: </strong>@Html.DisplayFor(modelItem => item.TargetAddress)<br>
+                        <strong>City: </strong>@Html.DisplayFor(modelItem => item.Location)<br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+ 

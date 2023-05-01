@@ -1,0 +1,431 @@
+﻿@model BloodDonationDetailView
+@{
+    ViewData["Title"] = "Past Donation Details";
+
+
+    ViewData["AppointmentActive"] = "active";
+
+}
+@{
+    // Set ProcessedDate to the current date
+    Model.bloodRecord.ProcessedDate = DateTime.Today;
+}
+@inject DropDown.ICommonDDL CommonDDL
+@inject DropDown.IBloodBankDDL bloodBankDDL
+@inject DropDown.IDonorDDL donnorDDL
+
+<partial name="_SelectData" />
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">@ViewData["Title"]</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+ 
+    
+     
+    <div class="row">
+
+        <div class="col-md-6 grid-margin">
+
+            <div class="card">
+
+                <div class="card-body">
+                    <h6 class="card-title">Donation Information</h6>
+                <div class="form-group row  ">
+                    <label class="col-4 col-form-label">Donation No: </label>
+                    <div class="col-8">
+                        <label class="col-4 col-form-label"> @Model.donarDonation.DonotionID</label>
+                    </div>
+                </div>
+
+                <div class="form-group row  ">
+                    <label class="col-4 col-form-label">Donar Full Name : </label>
+                    <div class="col-8">
+                        <label class="col-4 col-form-label"> @Model.donarDonation.Name <a class="" href=" @Url.Action("DonorDetails","Appointment" ,new {Area = "Doctor", id = @Model.donarDonation.DonorID })">(@Model.donarDonation.DonorID)</a></label>
+                    </div>
+                </div>
+
+                <div class="form-group row  ">
+                    <label class="col-4 col-form-label">Date Of Birth : </label>
+                    <div class="col-8">
+                        <label class="col-4 col-form-label"> @Model.donarDonation.DateOfBirth.ToString("dddd, dd MMMM yyyy") (@Model.donarDonation.Age)</label>
+                    </div>
+                </div>
+                <div class="form-group row  ">
+                    <label class="col-4 col-form-label">Address : </label>
+                    <div class="col-8">
+                        <label class="col-4 col-form-label"> @Model.donarDonation.Address</label>
+                    </div>
+                </div>
+                <div class="form-group row  ">
+                    <label class="col-4 col-form-label">Sex : </label>
+                    <div class="col-8">
+                        <label class="col-4 col-form-label"> @Model.donarDonation.GenderText</label>
+                    </div>
+                </div>
+
+                <div class="form-group row  ">
+                    <label class="col-4 col-form-label">Marital Status : </label>
+                    <div class="col-8">
+                        <label class="col-4 col-form-label"> @Model.donarDonation.MaritalStatusText</label>
+                    </div>
+                </div>
+                <div class="form-group row  ">
+                    <label class="col-4 col-form-label">Occupation : </label>
+                    <div class="col-8">
+                        <label class="col-4 col-form-label"> @Model.donarDonation.OccupationText</label>
+                    </div>
+                </div>
+
+                
+
+                <div class="form-group row  ">
+                    <label class="col-4 col-form-label">Blood Bank: </label>
+                    <div class="col-8">
+                        <label class="col-4 col-form-label"> @Model.donarDonation.BloodBankCentre</label>
+                    </div>
+                </div>
+                 
+                <div class="form-group row  ">
+                    <label class="col-4 col-form-label">Donation Date: </label>
+                    <div class="col-8">
+                        <label class="col-4 col-form-label"> @Model.donarDonation.DonationDate</label>
+                    </div>
+                </div>
+                @if (!string.IsNullOrWhiteSpace(Model.donarDonation.NextDonationDate.ToString()))
+                {
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Next Donation on: </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.NextDonationDate</label>
+                        </div>
+                    </div>
+                }
+                <div class="form-group row  ">
+                    <label class="col-4 col-form-label">Status: </label>
+                    <div class="col-8">
+                        <label class="col-4 col-form-label">  <span class="badge badge-@Model.donarDonation.StatusClass"> @Model.donarDonation.StatusText </span></label>
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrWhiteSpace(Model.donarDonation.RemarkRejected))
+                {
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Medical Rejected Remark:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.donarDonation.RemarkRejected</label>
+                        </div>
+                    </div>
+                }
+
+               
+                </div>
+            </div>
+        </div>
+
+    @if (Model.donarDonation.Status != "E" && Model.donarDonation.Status != "NE" && Model.donarDonation.Status != "AD")
+    {
+
+        <div class="col-md-6 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Doctor Verification</h6>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Doctor:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Html.DisplayFor(modelItem => modelItem.donarDonation.DoctorName) </label>
+                        </div>
+                    </div>
+                     <div class="form-group row">
+                        <label class="col-4 col-form-label">Doctor Licence No:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Html.DisplayFor(modelItem => modelItem.doctor.LicenseNumber)</label>
+                        </div>
+                    </div>
+                      <div class="form-group row">
+                    <label class="col-4 col-form-label">Doctor Specialty:</label>
+                        <div class="col-8">
+                        <label class="col-4 col-form-label">@Html.DisplayFor(modelItem => modelItem.donarDonation.SpecialtyText) </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Pulse:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.donarDonation.Pulse bpm</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Blood Pressure:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.donarDonation.BP mmhg</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">HB Level:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.donarDonation.HBLevel g/dL</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Weight:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.donarDonation.Weight kg</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Examination:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.donarDonation.ExaminationText</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Medical Remark:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.donarDonation.Remark</label>
+                        </div>
+                    </div>
+                    @if (!string.IsNullOrWhiteSpace(Model.donarDonation.FeedBack))
+                    {
+                        <div class="form-group row">
+                            <label class="col-4 col-form-label">Donor FeedBack:</label>
+                            <div class="col-8">
+                                <label class="col-4 col-form-label">@Model.donarDonation.FeedBack</label>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+
+    <div class="row">
+    @if (Model.donarDonation.Status != "E" && Model.donarDonation.Status != "NE" && Model.donarDonation.Status != "AD")
+          {
+        @if (Model.donarDonation.Status != "DV" && Model.donarDonation.Status != "DD")
+        {
+
+            <div class="col-md-6 grid-margin stretch-card">
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <h6 class="card-title">Test Results</h6>
+                        <div class="form-group row  ">
+                            <label class="col-4 col-form-label">Hemoglobin Level: </label>
+                            <div class="col-8">
+                                <label class="col-4 col-form-label"> @Model.bloodTestResult.HemoglobinLevel</label>
+                            </div>
+                        </div>
+                        <div class="form-group row  ">
+                            <label class="col-4 col-form-label">Platelet Level: </label>
+                            <div class="col-8">
+                                <label class="col-4 col-form-label"> @Model.bloodTestResult.PlateletLevel</label>
+                            </div>
+                        </div>
+                        <div class="form-group row  ">
+                            <label class="col-4 col-form-label">HIV Test Results: </label>
+                            <div class="col-8">
+                                <label class="col-4 col-form-label"> @Model.bloodTestResult.HIVTestResult</label>
+                            </div>
+                        </div>
+                        <div class="form-group row  ">
+                            <label class="col-4 col-form-label">White Blood Cunt: </label>
+                            <div class="col-8">
+                                <label class="col-4 col-form-label"> @Model.bloodTestResult.WhiteBloodCellCount</label>
+                            </div>
+                        </div>
+                        <div class="form-group row  ">
+                            <label class="col-4 col-form-label">Disease Results: </label>
+                            <div class="col-8">
+                                <label class="col-4 col-form-label"> @Model.bloodTestResult.DiseaseOrVirus</label>
+                            </div>
+                        </div>
+
+                        @if (Model.donarDonation.TestRecordPdfFile != null)
+                        {
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label"> </label>
+                                <div class="col-8">
+                                    <a href="~/Uploads/@Model.donarDonation.TestRecordPdfFile" download class="btn btn-dark float-right  mr-2 mb-2 mb-md-0 ">Download Test Results</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">Blood Records</h6>
+ 
+
+                        <div class="form-group row">
+                            <label class="col-4 col-form-label">Blood Processed on:</label>
+                            <div class="col-8">
+                            <label class="col-4 col-form-label">@Html.DisplayFor(modelItem => modelItem.bloodRecord.ProcessedDate) </label>
+                            </div>
+                        </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Blood Expires on:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Html.DisplayFor(modelItem => modelItem.bloodRecord.ExpirationDate) </label>
+                        </div>
+                    </div>
+                   
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Currentn Location:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.bloodRecord.Location</label>
+                        </div>
+                    </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            }
+          }
+        <div class="col-md-12 grid-margin">
+
+        <div class="card">
+
+            <div class="card-body">
+                <h6 class="card-title">Questionare Information</h6>
+
+                <div class="table-responsive">
+                    <table class="table table-centered table-nowrap table-striped">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Answer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q1Prob)</td>
+                                <td>@(Model.questionnaire.Q1Prob == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q1Doctor)</td>
+                                <td>@(Model.questionnaire.Q1Doctor == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q1Health)</td>
+                                <td>@(Model.questionnaire.Q1Health == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>Q4: Have you suffered from or been treated for any of the following medical conditions? <br> Heart disease,Paralysis,Diabetes,Ellipsis (Fif%),Cancer,Asthma/ lung disease,Blood diseases,Kidney disease</td>
+                                <td>@(Model.questionnaire.Q2medCond == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q3Medication)</td>
+                                <td>@(Model.questionnaire.Q3Medication == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q4Surgery)</td>
+                                <td>@(Model.questionnaire.Q4Surgery == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q5Heavywork)</td>
+                                <td>@(Model.questionnaire.Q5Heavywork == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q6Pregnant)</td>
+                                <td>@(Model.questionnaire.Q6Pregnant == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q7YellowFever)</td>
+                                <td>@(Model.questionnaire.Q7YellowFever == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q7TbTyphoid)</td>
+                                <td>@(Model.questionnaire.Q7TbTyphoid == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q7Treated)</td>
+                                <td>@(Model.questionnaire.Q7Treated == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q8Immunization)</td>
+                                <td>@(Model.questionnaire.Q8Immunization == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q8TattooAcupuncture)</td>
+                                <td>@(Model.questionnaire.Q8TattooAcupuncture == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q8Abroad)</td>
+                                <td>@(Model.questionnaire.Q8Abroad == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q8Prison)</td>
+                                <td>@(Model.questionnaire.Q8Prison == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q8Blood)</td>
+                                <td>@(Model.questionnaire.Q8Blood == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q8Malaria)</td>
+                                <td>@(Model.questionnaire.Q8Malaria == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q9Dengue)</td>
+                                <td>@(Model.questionnaire.Q9Dengue == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q9Fever)</td>
+                                <td>@(Model.questionnaire.Q9Fever == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q9Teeth)</td>
+                                <td>@(Model.questionnaire.Q9Teeth == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Q21:Do you belong to any of the following categories?<br>
+                                    AIDS/HIV, Hepatitis B/C, multiple sexual partners, male homosexual relationship, injected drugs, prostitution,<br> engaged in prostitution in last 12 months, or suspected of having AIDS/HIV/STI.
+                                </td>
+                                <td>@(Model.questionnaire.Q10Categories == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q11PartnerCategory)</td>
+                                <td>@(Model.questionnaire.Q11PartnerCategory == 1 ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.LabelFor(model => model.questionnaire.Q12Symptoms)</td>
+                                <td>@(Model.questionnaire.Q12Symptoms == 1 ? "Yes" : "No")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+ @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+     
+    </script>
+
+}
+
+
+

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BloodRequest>
+
+@{
+    Layout = null;
+
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 class="card-title">Date of Requirement: @item.DateTimeOfRequirement.ToString("dd MMMM yyyy")</h6>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1">Blood Group:</p>
+                            <h6 class="mb-0">@Html.DisplayFor(modelItem => item.BloodGroup)</h6>
+                        </div>
+                        <div>
+                            <p class="text-muted mb-1">Doctor In Charge:</p>
+                            <h6 class="mb-0">@Html.DisplayFor(modelItem => item.DoctorInCharge)</h6>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1">Hospital:</p>
+                            <h6 class="mb-0">@Html.DisplayFor(modelItem => item.HospitalName)</h6>
+                        </div>
+                        <div>
+                            <p class="text-muted mb-1">Contact No.:</p>
+                            <h6 class="mb-0">@item.OutHospitalPhoneNumber</h6>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <p class="text-muted mb-1">Address:</p>
+                        <h6 class="mb-0">@Html.DisplayFor(modelItem => item.HAddress) (@Html.DisplayFor(modelItem => item.LocationName))</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+

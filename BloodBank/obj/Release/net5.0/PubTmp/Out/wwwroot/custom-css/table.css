@@ -1,0 +1,86 @@
+﻿.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f7f7f7;
+}
+
+.table thead th {
+    text-transform: none;
+    color: #727cf5;
+}
+
+.table td, .table th {
+    padding: .70rem;
+}
+
+.table-icon {
+    font-size: 0.975rem;
+    display: inline-block;
+    padding: 0 2px;
+}
+
+
+<!-- css -->
+.perfect-scrollbar-example {
+    position: relative;
+    max-height: 250px;
+}
+
+.dropdown .dropdown-menu .dropdown-item, .btn-group .dropdown-menu .dropdown-item, .fc .fc-toolbar.fc-header-toolbar .fc-toolbar-chunk .fc-button-group .dropdown-menu .dropdown-item {
+    font-size: .812rem;
+    padding: .45rem .875rem;
+    transition: all .2s ease-in-out;
+    border-radius: 2px;
+}
+
+.FixedTableText {
+    font-size: 0.875rem;
+}
+
+.table td, .table th {
+    padding: 0.5rem;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #636566;
+}
+.paysliptext {
+    color: black;
+}
+
+.consolidated-basics,
+.gross-pay,
+.total-deduction,
+.net-salary {
+    font-weight: bold;
+    font-size: 17px;
+    color: black;
+}
+
+.net-salary {
+    font-weight: bold !important;
+    color: black;
+    background-color: grey;
+}
+.net-salary {
+    font-weight: bold !important;
+    color: black;
+    background-color: #e4e3e3;
+}
+.net-salary ~ tr {
+    color: #6e6d6d;
+}
+.tablePayslip {
+    width: 100%;
+    margin-bottom: 0rem;
+    color: #3c3c3c;
+}
+
+.group {
+    color: green;
+}
+
+.employee {
+    color: red;
+}
+ 

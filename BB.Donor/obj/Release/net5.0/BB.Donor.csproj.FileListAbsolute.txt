@@ -1,0 +1,15 @@
+F:\Asure Final Project\BB.Donor\bin\Release\net5.0\BB.Donor.deps.json
+F:\Asure Final Project\BB.Donor\bin\Release\net5.0\BB.Donor.dll
+F:\Asure Final Project\BB.Donor\bin\Release\net5.0\BB.Donor.pdb
+F:\Asure Final Project\BB.Donor\bin\Release\net5.0\BB.DBAccess.dll
+F:\Asure Final Project\BB.Donor\bin\Release\net5.0\BB.DBAccess.pdb
+F:\Asure Final Project\BB.Donor\obj\Release\net5.0\BB.Donor.csproj.AssemblyReference.cache
+F:\Asure Final Project\BB.Donor\obj\Release\net5.0\BB.Donor.GeneratedMSBuildEditorConfig.editorconfig
+F:\Asure Final Project\BB.Donor\obj\Release\net5.0\BB.Donor.AssemblyInfoInputs.cache
+F:\Asure Final Project\BB.Donor\obj\Release\net5.0\BB.Donor.AssemblyInfo.cs
+F:\Asure Final Project\BB.Donor\obj\Release\net5.0\BB.Donor.csproj.CoreCompileInputs.cache
+F:\Asure Final Project\BB.Donor\obj\Release\net5.0\BB.Donor.csproj.CopyComplete
+F:\Asure Final Project\BB.Donor\obj\Release\net5.0\BB.Donor.dll
+F:\Asure Final Project\BB.Donor\obj\Release\net5.0\refint\BB.Donor.dll
+F:\Asure Final Project\BB.Donor\obj\Release\net5.0\BB.Donor.pdb
+F:\Asure Final Project\BB.Donor\obj\Release\net5.0\ref\BB.Donor.dll

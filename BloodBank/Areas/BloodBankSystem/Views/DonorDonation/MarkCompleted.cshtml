@@ -1,0 +1,407 @@
+﻿@model BloodDonationDetailView
+@{
+    ViewData["Title"] = "Mark Completed ";
+
+    ViewData["DoctorActive"] = "active";
+ 
+}
+@{
+    // Set ProcessedDate to the current date
+    Model.bloodRecord.ProcessedDate = DateTime.Today;
+}
+@inject DropDown.ICommonDDL CommonDDL
+@inject DropDown.IBloodBankDDL bloodBankDDL
+@inject DropDown.IDonorDDL donnorDDL
+
+<partial name="_SelectData" />
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">@ViewData["Title"]</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+@using (Html.BeginForm("MarkCompleted", "DonorDonation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-md-6 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Test Results</h6>
+                    <div class="form-group row d-none">
+                        @Html.LabelFor(model => model.donarDonation.ReturnURL, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model =>  model.donarDonation.ReturnURL, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model =>  model.donarDonation.ReturnURL, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row ">
+                        @Html.LabelFor(model => model.donarDonation.DonorID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.donarDonation.DonorID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.donarDonation.DonorID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row  d-none">
+                        @Html.LabelFor(model => model.bloodTestResult.DonationID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodTestResult.DonationID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodTestResult.DonationID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row  d-none">
+                        @Html.LabelFor(model => model.bloodTestResult.TestID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodTestResult.TestID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodTestResult.TestID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodTestResult.HemoglobinLevel, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8 input-group input-groupi">
+                            @Html.EditorFor(model => model.bloodTestResult.HemoglobinLevel, new { htmlAttributes = new { @class = "form-control", @type = "number"  } })
+                            <div class="input-group-append">
+                                <span class="input-group-text">g/dL</span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.bloodTestResult.HemoglobinLevel, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodTestResult.PlateletLevel, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8 input-group input-groupi">
+                            @Html.EditorFor(model => model.bloodTestResult.PlateletLevel, new { htmlAttributes = new { @class = "form-control",  @type = "number"  } })
+                            <div class="input-group-append">
+                                <span class="input-group-text">cells/μL</span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.bloodTestResult.PlateletLevel, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                      <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodTestResult.WhiteBloodCellCount, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8 input-group input-groupi">
+                            @Html.EditorFor(model => model.bloodTestResult.WhiteBloodCellCount, new { htmlAttributes = new { @class = "form-control",  @type = "number"  } })
+                            <div class="input-group-append">
+                                <span class="input-group-text">WBC</span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.bloodTestResult.WhiteBloodCellCount, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodTestResult.HIVTestResult, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.DropDownList("bloodTestResult.HIVTestResult", bloodBankDDL.TestResultsList(), htmlAttributes: new { @class = "" })
+                            @Html.ValidationMessageFor(model => model.bloodTestResult.HIVTestResult, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodTestResult.DiseaseOrVirusStatus, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.DropDownList("bloodTestResult.DiseaseOrVirusStatus", bloodBankDDL.TestResultsList(), htmlAttributes: new { @class = "form-control", id = "diseaseOrVirusStatus" })
+                            @Html.ValidationMessageFor(model => model.bloodTestResult.DiseaseOrVirusStatus, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="diseaseOrVirusTextBox" style="display:none">
+                        @Html.LabelFor(model => model.bloodTestResult.DiseaseOrVirus, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.TextBoxFor(model => model.bloodTestResult.DiseaseOrVirus, new { @class = "form-control", @value = "Negative" })
+                            @Html.ValidationMessageFor(model => model.bloodTestResult.DiseaseOrVirus, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.FileUpload, htmlAttributes: new { @class = "col-4 col-form-label" })
+                    <div class="col-8">
+                        @Html.EditorFor(model => model.FileUpload, new { htmlAttributes = new { @class = "form-control", autofocus = "autofocus" } })
+                        @Html.ValidationMessageFor(model => model.FileUpload, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+       
+        <div class="col-md-6 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Blood Records</h6>
+                    <div class="form-group row  d-none">
+                        @Html.LabelFor(model => model.bloodRecord.BloodRecordID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodRecord.BloodRecordID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodRecord.BloodRecordID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row  d-none">
+                        @Html.LabelFor(model => model.bloodRecord.DonationID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodRecord.DonationID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bloodRecord.DonationID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.donarDonation.BloodType, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.DropDownList("donarDonation.BloodType", donnorDDL.bloodTypeList(),"Select Blood Type" ,htmlAttributes: new { @class = "form-control",@required ="required" })
+                            @Html.ValidationMessageFor(model => model.donarDonation.BloodType, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodRecord.ProcessedDate, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodRecord.ProcessedDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            @Html.ValidationMessageFor(model => model.bloodRecord.ProcessedDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodRecord.ExpirationDate, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.bloodRecord.ExpirationDate, new { htmlAttributes = new { @class = "form-control", @type = "date",value="", required="required" } })
+
+                            @Html.ValidationMessageFor(model => model.bloodRecord.ExpirationDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodRecord.Status, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.DropDownList("bloodRecord.Status", bloodBankDDL.BloodStatusList(), htmlAttributes: new { @class = "form-control", id = "diseaseOrVirusStatus" })
+                            @Html.ValidationMessageFor(model => model.bloodRecord.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.bloodRecord.Location, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.DropDownList("bloodRecord.Location",await bloodBankDDL.LocationList(), "(All Location)", htmlAttributes: new { @class = "" })
+                            @Html.ValidationMessageFor(model => model.bloodRecord.Location, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                
+                     <div class="row mt-2 ">
+
+                        <div class="col-md-12 justify-content-center text-center">
+
+                            <button type="submit" class="btn btn-primary mr-2">Add</button>
+
+                            <a class="mt-2" href="/BloodBankSystem/DonorDonation">Cancel</a>
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-6 grid-margin stretch-card">
+
+            <div class="card">
+
+                <div class="card-body">
+                    <h6 class="card-title">Donar Information</h6>
+
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Donar Full Name : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.Name</label>
+                        </div>
+                    </div>
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Donor ID : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.DonorID</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">NIC No : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.NIC</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Date Of Birth : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.DateOfBirth.ToString("dddd, dd MMMM yyyy") (@Model.donarDonation.Age)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Contact : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.PhoneNumber   </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Address : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.Address</label>
+                        </div>
+                    </div>
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Sex : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.GenderText</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Marital Status : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.MaritalStatusText</label>
+                        </div>
+                    </div>
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Occupation : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.OccupationText</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     
+
+        <div class="col-md-6 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Doctor Verification</h6>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Doctor:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.donarDonation.DoctorID </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Pulse:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.donarDonation.Pulse bpm</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Blood Pressure:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.donarDonation.BP mmhg</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">HB Level:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.donarDonation.HBLevel g/dL</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Weight:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.donarDonation.Weight kg</label>
+                        </div>
+                    </div>
+
+                      <div class="form-group row">
+                        <label class="col-4 col-form-label">Examination:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.donarDonation.ExaminationText</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Medical Remark:</label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label">@Model.donarDonation.Remark</label>
+                        </div>
+                    </div>
+
+                 @if (!string.IsNullOrWhiteSpace(Model.donarDonation.RemarkRejected)) {
+                        <div class="form-group row">
+                            <label class="col-4 col-form-label">Medical Rejected Remark:</label>
+                            <div class="col-8">
+                                <label class="col-4 col-form-label">@Model.donarDonation.RemarkRejected</label>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+   
+}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+        <script>
+        $(document).ready(function () {
+            var today = new Date().toISOString().slice(0, 10);
+            $('#bloodRecord_ProcessedDate').val(today);
+            var selectedBloodType = $("#donarDonation_BloodType").val();
+  
+             if (selectedBloodType !== "") {
+                // set the dropdown list to readonly
+                $("#donarDonation_BloodType").prop("disabled", true);
+              }
+
+            $("form").submit(function () {
+                if ($("#bloodRecord_ExpirationDate").val() == "0001-01-01T00:00:00.000" && $("#bloodRecord_Location").val() == "") {
+                    alert("Expiration date is required");
+                    return false;
+                }
+            });
+        });
+
+        $(function () {
+            $('#diseaseOrVirusStatus').change(function () {
+                if ($(this).val() == 'P') {
+                    $('#diseaseOrVirusTextBox').show();
+                    $('#bloodTestResult_DiseaseOrVirus').val();
+                } else {
+                    $('#diseaseOrVirusTextBox').hide();
+                    $('#bloodTestResult_DiseaseOrVirus').val('Negative');
+                }
+            });
+        });
+
+        $(function () {
+            $('#diseaseOrVirusStatus').change(function () {
+                if ($(this).val() == 'P') {
+                    $('#diseaseOrVirusTextBox').show();
+                    $('#bloodTestResult_DiseaseOrVirus').val();
+                } else {
+                    $('#diseaseOrVirusTextBox').hide();
+                    $('#bloodTestResult_DiseaseOrVirus').val('Negative');
+                }
+            });
+        });
+    </script>
+
+}
+
+
+

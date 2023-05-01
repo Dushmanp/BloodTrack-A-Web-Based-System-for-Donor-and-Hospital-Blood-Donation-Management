@@ -1,0 +1,87 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodBank", "BloodBank.csproj", "{981CFE4B-7717-4F02-9E40-D8F161C013B0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.Account", "..\Admin.Account\Admin.Account.csproj", "{CF4B697C-5CD6-4020-9A53-579AE85C817B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB.DBAccess", "..\BB.DBAccess\BB.DBAccess.csproj", "{852E8C8A-75CA-475B-9DC7-0FD243373225}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB.Common", "..\BB.Common\BB.Common.csproj", "{0DE4A14E-E99B-4F71-AD63-3D0BB1EC6647}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB.Donor", "..\BB.Donor\BB.Donor.csproj", "{F2742FDA-8983-4F43-B1C5-542D4F3A805D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB.BloodBankL", "..\BB.BloodBankLib\BB.BloodBankL.csproj", "{447C236D-2E17-47E5-AA81-33FB9EDFA365}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestBloodBank", "..\UnitTestBloodBank\UnitTestBloodBank.csproj", "{78BD7E15-7CE7-4E4D-832F-84126232E329}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{981CFE4B-7717-4F02-9E40-D8F161C013B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{981CFE4B-7717-4F02-9E40-D8F161C013B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{981CFE4B-7717-4F02-9E40-D8F161C013B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{981CFE4B-7717-4F02-9E40-D8F161C013B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF4B697C-5CD6-4020-9A53-579AE85C817B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF4B697C-5CD6-4020-9A53-579AE85C817B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF4B697C-5CD6-4020-9A53-579AE85C817B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF4B697C-5CD6-4020-9A53-579AE85C817B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{852E8C8A-75CA-475B-9DC7-0FD243373225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{852E8C8A-75CA-475B-9DC7-0FD243373225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{852E8C8A-75CA-475B-9DC7-0FD243373225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{852E8C8A-75CA-475B-9DC7-0FD243373225}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DE4A14E-E99B-4F71-AD63-3D0BB1EC6647}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DE4A14E-E99B-4F71-AD63-3D0BB1EC6647}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DE4A14E-E99B-4F71-AD63-3D0BB1EC6647}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DE4A14E-E99B-4F71-AD63-3D0BB1EC6647}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2742FDA-8983-4F43-B1C5-542D4F3A805D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2742FDA-8983-4F43-B1C5-542D4F3A805D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2742FDA-8983-4F43-B1C5-542D4F3A805D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2742FDA-8983-4F43-B1C5-542D4F3A805D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{447C236D-2E17-47E5-AA81-33FB9EDFA365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{447C236D-2E17-47E5-AA81-33FB9EDFA365}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{447C236D-2E17-47E5-AA81-33FB9EDFA365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{447C236D-2E17-47E5-AA81-33FB9EDFA365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78BD7E15-7CE7-4E4D-832F-84126232E329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78BD7E15-7CE7-4E4D-832F-84126232E329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78BD7E15-7CE7-4E4D-832F-84126232E329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78BD7E15-7CE7-4E4D-832F-84126232E329}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD2AA9A7-E6D0-4A99-809D-166E6B010BFF}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/dushmanp123
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\Admin.Account\\Admin.Account.csproj
+		SccProjectName1 = ../Admin.Account
+		SccLocalPath1 = ..\\Admin.Account
+		SccProjectUniqueName2 = ..\\BB.Common\\BB.Common.csproj
+		SccProjectName2 = ../BB.Common
+		SccLocalPath2 = ..\\BB.Common
+		SccProjectUniqueName3 = ..\\BB.DBAccess\\BB.DBAccess.csproj
+		SccProjectName3 = ../BB.DBAccess
+		SccLocalPath3 = ..\\BB.DBAccess
+		SccProjectUniqueName4 = ..\\BB.Donor\\BB.Donor.csproj
+		SccProjectName4 = ../BB.Donor
+		SccLocalPath4 = ..\\BB.Donor
+		SccProjectUniqueName5 = BloodBank.csproj
+		SccLocalPath5 = .
+		SccProjectUniqueName6 = ..\\BB.BloodBankLib\\BB.BloodBankL.csproj
+		SccProjectName6 = ../BB.BloodBankLib
+		SccLocalPath6 = ..\\BB.BloodBankLib
+		SccProjectUniqueName7 = ..\\UnitTestBloodBank\\UnitTestBloodBank.csproj
+		SccProjectName7 = ../UnitTestBloodBank
+		SccLocalPath7 = ..\\UnitTestBloodBank
+	EndGlobalSection
+EndGlobal

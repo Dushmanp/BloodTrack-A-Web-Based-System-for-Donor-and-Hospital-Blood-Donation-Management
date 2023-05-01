@@ -1,0 +1,57 @@
+﻿<div class="sidebar-body">
+    <ul class="nav">
+        <li class="nav-item nav-category">Main</li>
+        <li class="nav-item @ViewData["DashboardActive"]">
+            <a href="~/" class="nav-link">
+                <i class="link-icon" data-feather="box"></i>
+                <span class="link-title">Dashboard</span>
+            </a>
+        </li>
+
+        @*Donor*@
+
+        <li class="nav-item nav-category">Donor</li>
+        <li class="nav-item @ViewData["DonarDetailsActive"]">
+            <a asp-area="Donor"
+               asp-controller="ProfileInfo"
+               asp-action="Index"
+               class="nav-link">
+                <i class="link-icon" data-feather="slack"></i>
+                <span class="link-title">Profile Info</span>
+            </a>
+        </li>
+        <li class="nav-item @ViewData["DonarDonationActive"]">
+            <a asp-area="Donor"
+               asp-controller="DonarDonation"
+               asp-action="Index"
+               class="nav-link">
+                <i class="link-icon" data-feather="slack"></i>
+                <span class="link-title">Donation Detail</span>
+            </a>
+        </li>
+      
+        @*Campaign*@
+
+        <li class="nav-item nav-category">Blood Bank Information</li>
+        <li class="nav-item @ViewData["CampaignActive"]">
+            <a asp-area="Donor"
+               asp-controller="Campaign"
+               asp-action="Index"
+               class="nav-link">
+                <i class="link-icon" data-feather="slack"></i>
+                <span class="link-title">Campaign Detail</span>
+            </a>
+        </li>
+        <li class="nav-item @ViewData["RequestActive"]">
+            <a asp-area="Donor"
+               asp-controller="BloodRequest"
+               asp-action="Index"
+               class="nav-link">
+                <i class="link-icon" data-feather="slack"></i>
+                <span class="link-title">Donotion Request Detail</span>
+            </a>
+        </li>
+        
+
+    </ul>
+</div>

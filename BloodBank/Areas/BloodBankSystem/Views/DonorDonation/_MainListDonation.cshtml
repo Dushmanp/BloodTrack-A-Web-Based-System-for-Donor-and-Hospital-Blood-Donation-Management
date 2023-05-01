@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DonarDonation>
+
+@{
+    Layout = null;
+}
+
+<div class="table-responsive">
+    <table class="table table-hover  ">
+        <thead>
+            <tr>
+                <th width="20">
+ 
+                </th>
+                
+                 
+                <th>@Html.DisplayNameFor(model => model.First().DonotionID)</th>
+                <th  >Donor Name</th>
+                <th >Age</th>
+            </tr>
+        </thead>
+        <tbody id="tblSelectBodyDon">
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.DonotionID">
+                    <td>
+                         <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input chkDonTick " data-id="@item.DonotionID" id="trn_@item.DonotionID"  />
+                            <label class="custom-control-label" for="trn_@item.DonotionID"></label>
+                        </div>
+                    </td>
+                    <td  >@Html.DisplayFor(modelItem => item.DonotionID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Age)</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+

@@ -1,0 +1,73 @@
+﻿.sidebar .sidebar-header .sidebar-brand {
+    font-size: 22px;
+    font-weight:500;
+}
+
+    .sidebar .sidebar-header .sidebar-brand span {
+        margin-left: 5px;
+    }
+
+.sidebar .sidebar-body .nav.sub-menu {
+    padding: 0px 0px 15px 43px;
+}
+.versiontext {
+    height: 25px;
+    color: #000;
+    font-size: 13px;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    color: #badde7 ;
+}
+
+input:focus {
+    outline-color: #ff3366;
+}
+.sidebar-dark .sidebar .sidebar-body {
+    background: #280404;
+    border-right: 1px solid #7c747a;
+}
+
+.sidebar-dark .sidebar .sidebar-header {
+    background: #280404;
+    border-bottom: 1px solid #3e0202;
+    border-right: 1px solid #3e0202;
+}
+
+.sidebar .sidebar-header .sidebar-brand span {
+    color: #ff6666;
+    font-weight: 300;
+}
+
+.sidebar-dark .sidebar .sidebar-body .nav .nav-item:hover .nav-link .link-title, .sidebar-dark .sidebar .sidebar-body .nav .nav-item.active .nav-link .link-title {
+    color: #f57272;
+}
+
+.sidebar .sidebar-body .nav .nav-item.active .nav-link .link-icon {
+    fill: rgba(239, 243, 255, 0.5);
+    color: #f57272;
+}
+
+.sidebar .sidebar-body .nav .nav-item:hover .nav-link .link-icon {
+    fill: rgba(239, 243, 255, 0.5);
+    color: #f57272;
+}
+
+sidebar-dark .sidebar .sidebar-header {
+    background: #280404;
+    border-bottom: 1px solid #7c747a;
+    border-right: 1px solid #7c747a;
+}
+
+dashboard-date.datepicker.input-group span {
+    border-left: none;
+    border-right: 1px solid #f57272;
+}
+
+.dashboard-date.datepicker.input-group {
+    border: 1px solid #eb3e3e;
+}
+
+    .dashboard-date.datepicker.input-group span {
+        border-left: none;
+        border-right: 1px solid #f57272;
+    }

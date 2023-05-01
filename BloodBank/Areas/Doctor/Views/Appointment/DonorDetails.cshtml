@@ -1,0 +1,155 @@
+﻿@model DonorInfo
+@inject DropDown.IDonorDDL donorDDL
+@{
+    ViewData["Title"] = "Donor Profile Information";
+
+    ViewData["AppointmentActive"] = "active";
+
+
+}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">@ViewData["Title"]</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+ 
+
+<div class="row">
+    <div class="col-md-6 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group row d-none">
+                    @Html.LabelFor(model => model.DonorID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                    <div class="col-8">
+                        @Html.DisplayFor(model => model.DonorID, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-4 col-form-label" })
+                    <div class="col-8">
+                        <label class="col-form-label">@Html.DisplayFor(model => model.Name)</label>
+                    </div>
+                </div>
+
+               @* <div class="form-group row">
+                    @Html.LabelFor(model => model.NIC, htmlAttributes: new { @class = "col-4 col-form-label" })
+                    <div class="col-8">
+                        <label class="col-form-label">@Html.DisplayFor(model => model.NIC)</label>
+                    </div>
+                </div>*@
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "col-4 col-form-label" })
+                    <div class="col-8">
+                        <label class="col-form-label">@Html.DisplayFor(model => model.DateOfBirth, "{0:yyyy-MM-dd}") (@Html.DisplayFor(model => model.Age)) </label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "col-4 col-form-label" })
+                    <div class="col-8">
+                        <label class="col-form-label">@Html.DisplayFor(model => model.PhoneNumber)</label>
+                    </div>
+                </div>
+                @if (!string.IsNullOrWhiteSpace(Model.OtherPhoneNumber.ToString()))
+                {
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.OtherPhoneNumber, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            <label class="col-form-label">@Html.DisplayFor(model => model.OtherPhoneNumber)</label>
+                        </div>
+                    </div>
+                }
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "col-4 col-form-label" })
+                    <div class="col-8">
+                        <label class="col-form-label">@Html.DisplayFor(model => model.Email)</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "col-4 col-form-label" })
+                    <div class="col-8">
+                        <label class="col-form-label">@Html.DisplayFor(model => model.Address)</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.DonationFrequency, htmlAttributes: new { @class = "col-4 col-form-label" })
+                    <div class="col-8">
+                        <label class="col-form-label">@Html.DisplayFor(model => model.DonationFrequency) Months</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Occupation, htmlAttributes: new { @class = "col-4 col-form-label" })
+                    <div class="col-8">
+                        <label class="col-form-label">@Html.DisplayFor(model => model.OccupationText)</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "col-4 col-form-label" })
+                    <div class="col-8">
+                        <label class="col-form-label">@Html.DisplayFor(model => model.MaritalStatusText)</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "col-4 col-form-label" })
+                    <div class="col-8">
+                        <label class="col-form-label">@Html.DisplayFor(model => model.GenderText)</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "col-4 col-form-label" })
+                    <div class="col-8">
+                        <label class="col-form-label">@Html.DisplayFor(model => model.Location)</label>
+                    </div>
+                </div>
+
+ 
+            </div>
+        </div>
+    </div>
+</div>
+
+       
+    
+ 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+
+    
+            function calculateAge(dateString) {
+                var today = new Date();
+                var birthDate = new Date(dateString);
+                var age = today.getFullYear() - birthDate.getFullYear();
+                var m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                return age;
+            }
+ 
+
+
+    </script>
+
+}
+
+
+
+
+
+

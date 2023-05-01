@@ -1,0 +1,111 @@
+﻿@model LoginView
+@{
+    ViewData["Title"] = "Doctor Login - Blood Track";
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="~/lib/core/core.css">
+    <link rel="stylesheet" href="~/fonts/feather-font/css/iconfont.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/custom-css/form.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/custom-css/header.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/custom-css/html.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/custom-css/sidebar.css" asp-append-version="true">
+
+    <link rel="shortcut icon" href="~/favicon.ico" />
+</head>
+<body class="sidebar-dark">
+    <div class="main-wrapper">
+        <div class="page-wrapper full-page">
+            <div class="page-content d-flex align-items-center justify-content-center">
+                <div class="row w-100 mx-0 auth-page">
+                    <div class="col-md-8 col-xl-6 mx-auto">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-md-6 pr-md-0">
+                                    <div class="auth-left-wrapper" style="background-color: #fdd2d3;">
+                                        <div class="text-center py-5">
+                                            <h1 class="mb-0 text-white">Doctor Login</h1>
+                                        </div>
+ 
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pl-md-0">
+                                    <div class="auth-form-wrapper px-4 py-5">
+                                        
+                                        <a href="#" class="noble-ui-logo d-block mb-2 text-center">
+                                            <img src="@Url.Content("~/images/logo.png")" alt="logo" class="img-fluid w-35 mx-auto">
+                                        </a>
+
+                                        <h5 class="text-muted font-weight-normal mb-4">Welcome back! Log in to your account.</h5>
+                                        @using (Html.BeginForm("LoginDoc", "Account", FormMethod.Post, new { @class = "forms-sample" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                             <div class="mt-2 alert alert-danger  @(ViewData["ErrorMessage"] == null ? "d-none" : "")">
+                                                @(ViewData["ErrorMessage"])
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Username)
+                                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your Email", autofocus = "autofocus" } })
+                                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Password)
+                                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { id = "txtPassword", @class = "form-control", placeholder = "Enter your password" } })
+                                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-check form-check-flat form-check-danger">
+                                                <label class="form-check-label">
+                                                    @Html.CheckBoxFor(model => model.RememberMe, new { htmlAttributes = new { @class = "form-check-input" } })
+                                                    Remember me
+                                                </label>
+                                            </div>
+                                            <div class="mt-4">
+                                                <button type="submit" class="btn btn-danger btn-block text-white">
+                                                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                                    Login
+                                                </button>
+                                            </div>
+                                            <div class="text-center mt-3">
+                                                <a href="~/Account/ForgotDocPassword" class="text-muted">Forgot your password?</a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/lib/core/core.js"></script>
+    <script src="~/lib/feather-icons/feather.min.js"></script>
+    <script src="~/js/template.js"></script>
+
+    <script src="~/js/custom.js" asp-append-version="true"></script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+</body>
+</html>
+
+
+<script>
+
+    $(document).ready(function () {
+        //$("#txtPassword").val("1");
+    });
+</script>

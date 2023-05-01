@@ -1,0 +1,401 @@
+﻿@model DonationAddEdit
+@{
+    ViewData["Title"] = "Verification Process - " + Model.donarDonation.DonorID;
+
+    ViewData["AppointmentActive"] = "active";
+}
+@inject DropDown.IDonorDDL donorDDL
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">@ViewData["Title"]</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+         
+
+    <div class="row">
+        <div class="col-md-6 grid-margin">
+            <div class="card">
+                
+                <div class="card-body">
+                    <h6 class="card-title">Verification</h6>
+                     <div class="form-group row  d-none ">
+                        @Html.LabelFor(model => model.donarDonation.DonotionID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.donarDonation.DonotionID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.donarDonation.DonotionID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row  ">
+                            @Html.LabelFor(model => model.donarDonation.Pulse, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8 input-group input-groupi">
+                            @Html.EditorFor(model => model.donarDonation.Pulse, new { htmlAttributes = new { @class = "form-control" ,   @min = "1", @type="number"} })
+                            <div class="input-group-append">
+                                <span class="input-group-text">bpm</span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.donarDonation.Pulse, "", new { @class = "text-danger"  })
+                            <span id="spnPulse" style="display:none" class="text-warning">Pulse should be in between 50 and 100 beats per minute.</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row  ">
+                        @Html.LabelFor(model => model.donarDonation.BP, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8 input-group input-groupi">
+                            @Html.EditorFor(model => model.donarDonation.BP, new { htmlAttributes = new { @class = "form-control input-number", @type = "text", @pattern = "\\d+/\\d+" } })
+                            <div class="input-group-append">
+                                <span class="input-group-text">mmHg</span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.donarDonation.BP, "", new { @class = "text-danger" })
+                            <span id="spnBP" style="display:none" class="text-warning">Blood pressure should be below 180 systolic and 100 diastolic.</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.donarDonation.HBLevel, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8 input-group input-groupi">
+                            @Html.EditorFor(model => model.donarDonation.HBLevel, new { htmlAttributes = new { @class = "form-control input-number", @min = "1", @type = "number" } })
+                            <div class="input-group-append">
+                                <span class="input-group-text">g/dL</span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.donarDonation.HBLevel, "", new { @class = "text-danger" })
+                            <span id="spnHBLevel" style="display:none" class="text-warning">HBLevel should be minimum 12.5 g/dL for women and 13.0 g/dL for men, maximum 20 g/dL.</span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row  ">
+                        @Html.LabelFor(model => model.donarDonation.Weight, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8 input-group input-groupi">
+                            @Html.EditorFor(model => model.donarDonation.Weight, new { htmlAttributes = new { @class = "form-control" ,@min="1", @type="number" } })
+                            <div class="input-group-append">
+                                <span class="input-group-text">kg</span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.donarDonation.Weight, "", new { @class = "text-danger" })
+                            <span id="spnWeight" style="display:none" class="text-warning">Weight should be above 50.</span>
+                        </div>
+                    </div>
+                      <div class="form-group row d-none ">
+                        @Html.LabelFor(model => model.donarDonation.Gender, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.donarDonation.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.donarDonation.Gender, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                        <div class="form-group row  d-none">
+                        @Html.LabelFor(model => model.donarDonation.Age, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.donarDonation.Age, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.donarDonation.Age, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row  ">
+                        @Html.LabelFor(model => model.donarDonation.Examination, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.DropDownList("donarDonation.Examination", donorDDL.DonationExaminationList(),  "Select Examination", htmlAttributes: new { @class = "form-control", data_toggle = "select2" })
+
+                            @Html.ValidationMessageFor(model => model.donarDonation.Examination, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row  ">
+                        @Html.LabelFor(model => model.donarDonation.Remark, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.donarDonation.Remark, new { htmlAttributes = new { @class = "form-control", @row="5" } })
+                            @Html.ValidationMessageFor(model => model.donarDonation.Remark, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                     <div class="form-group row d-none ">
+                            @Html.LabelFor(model => model.donarDonation.Status, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.donarDonation.Status, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.donarDonation.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row d-none">
+                        @Html.LabelFor(model => model.donarDonation.RemarkRejected, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.donarDonation.RemarkRejected, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.donarDonation.RemarkRejected, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Verify" class="btn btn-primary mr-2 mb-2 mb-md-0 text-white" />
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 grid-margin stretch-card">
+          
+            <div class="card">
+               
+                <div class="card-body">
+                    <h6 class="card-title">Donar Information</h6>
+
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Donar Full Name : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.Name</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Date Of Birth : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.DateOfBirth.ToString("dddd, dd MMMM yyyy") (@Model.donarDonation.Age)</label>
+                        </div>
+                    </div>
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Address : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.Address</label>
+                        </div>
+                    </div>
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Sex : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.GenderText</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Marital Status : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.MaritalStatusText</label>
+                        </div>
+                    </div>
+                    <div class="form-group row  ">
+                        <label class="col-4 col-form-label">Occupation : </label>
+                        <div class="col-8">
+                            <label class="col-4 col-form-label"> @Model.donarDonation.OccupationText</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 grid-margin">
+     
+            <div class="card">
+              
+                <div class="card-body">
+                    <h6 class="card-title">Questionare Information</h6>
+
+                    <div class="table-responsive">
+                        <table class="table table-centered table-nowrap table-striped">
+                            <thead>
+                                <tr>
+                                    <th >Question</th>
+                                    <th>Answer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td >@Html.LabelFor(model => model.questionnaire.Q1Prob)</td>
+                                    <td>@(Model.questionnaire.Q1Prob == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q1Doctor)</td>
+                                    <td>@(Model.questionnaire.Q1Doctor == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q1Health)</td>
+                                    <td>@(Model.questionnaire.Q1Health == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>Q4: Have you suffered from or been treated for any of the following medical conditions? <br> Heart disease,Paralysis,Diabetes,Ellipsis (Fif%),Cancer,Asthma/ lung disease,Blood diseases,Kidney disease</td>
+                                    <td>@(Model.questionnaire.Q2medCond == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q3Medication)</td>
+                                    <td>@(Model.questionnaire.Q3Medication == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q4Surgery)</td>
+                                    <td>@(Model.questionnaire.Q4Surgery == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q5Heavywork)</td>
+                                    <td>@(Model.questionnaire.Q5Heavywork == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q6Pregnant)</td>
+                                    <td>@(Model.questionnaire.Q6Pregnant == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q7YellowFever)</td>
+                                    <td>@(Model.questionnaire.Q7YellowFever == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q7TbTyphoid)</td>
+                                    <td>@(Model.questionnaire.Q7TbTyphoid == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q7Treated)</td>
+                                    <td>@(Model.questionnaire.Q7Treated == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q8Immunization)</td>
+                                    <td>@(Model.questionnaire.Q8Immunization == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q8TattooAcupuncture)</td>
+                                    <td>@(Model.questionnaire.Q8TattooAcupuncture == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q8Abroad)</td>
+                                    <td>@(Model.questionnaire.Q8Abroad == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q8Prison)</td>
+                                    <td>@(Model.questionnaire.Q8Prison == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q8Blood)</td>
+                                    <td>@(Model.questionnaire.Q8Blood == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q8Malaria)</td>
+                                    <td>@(Model.questionnaire.Q8Malaria == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q9Dengue)</td>
+                                    <td>@(Model.questionnaire.Q9Dengue == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q9Fever)</td>
+                                    <td>@(Model.questionnaire.Q9Fever == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q9Teeth)</td>
+                                    <td>@(Model.questionnaire.Q9Teeth == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>Q21:Do you belong to any of the following categories?<br> 
+                                        AIDS/HIV, Hepatitis B/C, multiple sexual partners, male homosexual relationship, injected drugs, prostitution,<br> engaged in prostitution in last 12 months, or suspected of having AIDS/HIV/STI.</td>
+                                    <td>@(Model.questionnaire.Q10Categories == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q11PartnerCategory)</td>
+                                    <td>@(Model.questionnaire.Q11PartnerCategory == 1 ? "Yes" : "No")</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.questionnaire.Q12Symptoms)</td>
+                                    <td>@(Model.questionnaire.Q12Symptoms == 1 ? "Yes" : "No")</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+            
+
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+   <script>
+
+        $(document).ready(function () {
+
+            $(function () {
+                var pulseTextbox = $("#donarDonation_Pulse");
+                if (pulseTextbox.val() === "0") {
+                    pulseTextbox.val("");
+                }
+
+                var BPTextbox = $("#donarDonation_BP");
+                if (BPTextbox.val() === "0") {
+                    BPTextbox.val("");
+                }
+
+                var HBLevelTextbox = $("#donarDonation_HBLevel");
+                if (HBLevelTextbox.val() === "0") {
+                    HBLevelTextbox.val("");
+                }
+
+                var BPTextbox = $("#donarDonation_BP");
+                if (BPTextbox.val() === "0") {
+                    BPTextbox.val("");
+                }
+
+                var WeightTextbox = $("#donarDonation_Weight");
+                if (WeightTextbox.val() === "0") {
+                    WeightTextbox.val("");
+                }
+            });
+
+            $("#donarDonation_Pulse").on("input", function () {
+                if ($(this).val().length > 0) {
+                    $("#spnPulse").show();
+                } else {
+                    $("#spnPulse").hide();
+                }
+            });
+
+            $("#donarDonation_Pulse").on("blur", function () {
+                $("#spnPulse").hide();
+            });
+
+
+            $("#donarDonation_BP").on("input", function () {
+                
+                if ($(this).val().length > 0) {
+                    $("#spnBP").show();
+                } else {
+                    $("#spnBP").hide();
+                }
+            });
+
+            $("#donarDonation_BP").on("blur", function () {
+                $("#spnBP").hide();
+            });
+
+            $("#donarDonation_HBLevel").on("input", function () {
+                if ($(this).val().length > 0) {
+                    $("#spnHBLevel").show();
+                } else {
+                    $("#spnHBLevel").hide();
+                }
+            });
+
+            $("#donarDonation_HBLevel").on("blur", function () {
+                $("#spnHBLevel").hide();
+            });
+
+            $("#donarDonation_Weight").on("input", function () {
+                if ($(this).val().length > 0) {
+                    $("#spnWeight").show();
+                } else {
+                    $("#spnWeight").hide();
+                }
+            });
+
+            $("#donarDonation_Weight").on("blur", function () {
+                $("#spnWeight").hide();
+            });
+        });
+
+
+   </script>
+}
+
+

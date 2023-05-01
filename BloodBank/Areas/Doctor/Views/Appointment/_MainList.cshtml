@@ -1,0 +1,63 @@
+﻿@model IEnumerable<DonarDonation>
+
+@{
+    Layout = null;
+
+}
+
+<div class="table-responsive">
+    <table class="table table-centered table-nowrap table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().DonotionID)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+                
+                <th  >Action</th>
+                <th>@Html.DisplayNameFor(model => model.First().DonationDate)</th>
+                
+                <th>@Html.DisplayNameFor(model => model.First().StatusText)</th>
+        
+            </tr>
+        </thead>
+        <tbody id="tblBody">
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.DonotionID">
+                    <td>
+                        <a class="" href=" @Url.Action("verify","Appointment" ,new {Area = "Doctor", id = item.DonotionID })">@Html.DisplayFor(modelItem => item.DonotionID)</a>
+                        
+                    </td>
+                    <td class="">
+
+                        @Html.DisplayFor(modelItem => item.Name) (<a class="" href=" @Url.Action("DonorPastDonation","Appointment" ,new {Area = "Doctor", DonorID = item.DonorID })">@Html.DisplayFor(modelItem => item.DonorID)</a>)
+                        <br>
+                        Blood Type :  @Html.DisplayFor(modelItem => item.BloodType) <br>
+                        NIC : @item.NIC <br>
+                        Contact :  @item.PhoneNumber  <br>
+                        @item.GenderText (@item.Age years old)
+                    
+                    </td>
+                    
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-sm dropdown-toggle btn-secondary btn-icon-text btn-edit-profile" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i data-feather="edit" class="btn-icon-prepend"></i> Action
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4" style="">
+                                <a class="dropdown-item" href=" @Url.Action("verify","Appointment" ,new {Area = "Doctor", id = item.DonotionID })">Verify Donation</a>
+                                <a class="dropdown-item" href=" @Url.Action("DonorPastDonation","Appointment" ,new {Area = "Doctor", DonorID = item.DonorID })">View Past Donation</a>
+                                <a class="dropdown-item" href=" @Url.Action("DonorDetails","Appointment" ,new {Area = "Doctor", id = item.DonorID })"> View Donor Info</a>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <td>@Html.DisplayFor(modelItem => item.DonationDate)</td>
+                  
+                    <td><span class="badge badge-@item.StatusClass">@Html.DisplayFor(modelItem => item.StatusText)</span></td>
+                  
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

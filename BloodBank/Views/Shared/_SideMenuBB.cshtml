@@ -1,0 +1,91 @@
+﻿<div class="sidebar-body">
+    <ul class="nav">
+        <li class="nav-item nav-category">Main</li>
+        <li class="nav-item @ViewData["DashboardActive"]">
+            <a asp-area="OHospital"
+               asp-controller="Home"
+               asp-action="Index" class="nav-link">
+                <i class="link-icon" data-feather="box"></i>
+                <span class="link-title">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item nav-category">Blood Donor Donation</li>
+        <li class="nav-item @ViewData["AppointmentActive"]">
+            <a asp-area="BloodBankSystem"
+               asp-controller="DonorDonation"
+               asp-action="DocAppointment"
+               class="nav-link">
+                <i class="link-icon" data-feather="slack"></i>
+                <span class="link-title">Appointment Doctor</span>
+            </a>
+        </li>
+        <li class="nav-item @ViewData["MarkDonatedActive"]">
+            <a asp-area="BloodBankSystem"
+               asp-controller="DonorDonation"
+               asp-action="MarkDonated"
+               class="nav-link">
+                <i class="link-icon" data-feather="slack"></i>
+                <span class="link-title">Mark Donated</span>
+            </a>
+        </li>
+        <li class="nav-item @ViewData["DonationActive"]">
+            <a asp-area="BloodBankSystem"
+               asp-controller="DonorDonation"
+               asp-action="Index"
+               class="nav-link">
+                <i class="link-icon" data-feather="slack"></i>
+                <span class="link-title">Donation Details</span>
+            </a>
+        </li>
+        <li class="nav-item nav-category">Blood Bank Information</li>
+        <li class="nav-item @ViewData["CampaignActive"]">
+            <a asp-area="BloodBankSystem"
+               asp-controller="Campaign"
+               asp-action="Index"
+               class="nav-link">
+                <i class="link-icon" data-feather="slack"></i>
+                <span class="link-title">Campaign Detail</span>
+            </a>
+        </li>
+        <li class="nav-item @ViewData["RequestActive"]">
+            <a asp-area="BloodBankSystem"
+               asp-controller="BloodRequest"
+               asp-action="Index"
+               class="nav-link">
+                <i class="link-icon" data-feather="slack"></i>
+                <span class="link-title">Blood Request Detail</span>
+            </a>
+        </li>
+       
+        <li class="nav-item nav-category">Administration</li>
+        <li class="nav-item @ViewData["DoctorActive"]">
+      <a asp-area="BloodBankSystem"
+               asp-controller="Doctor"
+               asp-action="Index"
+               class="nav-link">
+                <i class="link-icon" data-feather="slack"></i>
+                <span class="link-title">Doctor</span>
+            </a>
+        </li>
+  <li class="nav-item @ViewData["UserActive"]">
+            <a asp-area="BloodBankSystem"
+               asp-controller="OutHospital"
+               asp-action="Index"
+               class="nav-link">
+                <i class="link-icon" data-feather="user"></i>
+                <span class="link-title">Out Hospital</span>
+            </a>
+        </li>
+        <li class="nav-item @ViewData["UserActive"]">
+            <a asp-area="BloodBankSystem"
+               asp-controller="User"
+               asp-action="Index"
+               class="nav-link">
+                <i class="link-icon" data-feather="user"></i>
+                <span class="link-title">Users</span>
+            </a>
+        </li>
+
+        
+    </ul>
+</div>

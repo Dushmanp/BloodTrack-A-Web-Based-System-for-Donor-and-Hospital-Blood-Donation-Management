@@ -1,0 +1,89 @@
+﻿@model IEnumerable<DonarDonation>
+
+@{
+    Layout = null;
+
+}
+
+<div class="table-responsive">
+    <table class="table table-centered table-nowrap table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().DonotionID)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+                <th style="width:70px;">Action</th>
+                <th>@Html.DisplayNameFor(model => model.First().BloodBagNo)</th>
+                <th>@Html.DisplayNameFor(model => model.First().DonationDate)</th>
+                <th>@Html.DisplayNameFor(model => model.First().NextDonationDate)</th>
+                <th>@Html.DisplayNameFor(model => model.First().StatusText)</th>
+                 
+            </tr>
+        </thead>
+        <tbody id="tblBody">
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.DonotionID" data-id="@item.DonotionID">
+                    <td>
+                        <a class="" href=" @Url.Action("ViewDetails","DonorDonation" ,new {Area = "BloodBankSystem", id = item.DonotionID })">@Html.DisplayFor(modelItem => item.DonotionID)</a>
+
+                    </td>
+                    <td class="">
+
+                        @Html.DisplayFor(modelItem => item.Name) <br>
+                        Donor ID :<a class="" href=" @Url.Action("DonorDetails","DonorDonation" ,new {Area = "BloodBankSystem", id = item.DonorID })">@Html.DisplayFor(modelItem => item.DonorID)</a>
+                        <br>
+                        Blood Type :  @Html.DisplayFor(modelItem => item.BloodType) <br>
+                        NIC : @item.NIC <br>
+                        Contact :  @item.PhoneNumber  <br>
+                        @item.GenderText (@item.Age years old)
+
+                    </td>
+                    <td>
+                       
+                     
+                        <div class="btn-group">
+                            <button class="btn btn-sm dropdown-toggle btn-secondary btn-icon-text btn-edit-profile" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i data-feather="edit" class="btn-icon-prepend"></i> Action
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4" style="">
+                                <a class="dropdown-item" href=" @Url.Action("ViewDetails","DonorDonation" ,new {Area = "BloodBankSystem", id = item.DonotionID })">View Full Donation Details</a>
+                               
+                                @if (item.Status == "DV")
+                                {
+                                    <a class="dropdown-item" href=" @Url.Action("MarkDonated","DonorDonation" ,new {Area = "BloodBankSystem", id = item.DonotionID })">Mark Donated</a>
+                                    
+                                }
+                                @if (item.Status == "D")
+                                {
+                                    <a class="dropdown-item" href=" @Url.Action("MarkCompleted","DonorDonation" ,new {Area = "BloodBankSystem", id = item.DonotionID })">Mark Completed</a>
+
+                                }
+
+                                  @if (item.Status == "C")
+                                {
+                                    <a class="dropdown-item" href="javascript:void(0);" onclick="ConfirmAccepted('@item.DonotionID','@Url.Action("UpdateTransfusion","DonorDonation", new { Area = "BloodBankSystem" })')">Mark Transfusion</a>
+
+                                }
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                       
+                            @Html.DisplayFor(modelItem => item.BloodBagNo)
+                        
+                    </td>
+
+                    <td>@Html.DisplayFor(modelItem => item.DonationDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NextDonationDate)</td>
+                    <td><span class="badge badge-@item.StatusClass">@Html.DisplayFor(modelItem => item.StatusText)</span></td>
+                 
+                </tr>
+            }
+        </tbody>
+
+
+
+    </table>
+     
+</div>

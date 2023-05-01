@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DoctorInfo>
+
+@{
+    Layout = null;
+}
+
+<div class="table-responsive">
+    <table class="table table-centered table-nowrap table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().FullName)</th>
+                <th style="width:70px;">Action</th>
+                <th class="d-none">@Html.DisplayNameFor(model => model.First().UserName)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Email)</th>
+                <th>@Html.DisplayNameFor(model => model.First().PhoneNumber)</th>
+                <th class="">@Html.DisplayNameFor(model => model.First().BloodBankCentre)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Specialty)</th>
+                <th>@Html.DisplayNameFor(model => model.First().LicenseNumber)</th>
+                <th class="d-none">@Html.DisplayNameFor(model => model.First().LicenseExpirationDate)</th>
+                <th class="d-none">@Html.DisplayNameFor(model => model.First().DateOfBirth)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Gender)</th>
+                <th class="d-none">@Html.DisplayNameFor(model => model.First().Address)</th>
+                
+            </tr>
+        </thead>
+        <tbody id="tblBody">
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.DoctorID">
+                    <td class="d-none">@Html.DisplayFor(modelItem => item.DoctorID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="LoadTickSaveDonorData('@item.DoctorID','@item.FullName');" class=" text-primary">Donor Appoint</a>
+                       
+                    </td>
+                    <td class="d-none">@Html.DisplayFor(modelItem => item.UserName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                    <td class="">@Html.DisplayFor(modelItem => item.BloodBankCentre)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SpecialtyText)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LicenseNumber)</td>
+                    <td class="d-none">@Html.DisplayFor(modelItem => item.LicenseExpirationDate)</td>
+                    <td class="d-none">@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
+                    <td>@Html.DisplayFor(modelItem => item.GenderText)</td>
+                    <td class="d-none">@Html.DisplayFor(modelItem => item.Address)</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,199 @@
+﻿@model BloodRequestSearchView
+@{
+    ViewData["Title"] = "Blood Request ";
+
+    ViewData["RequestActive"] = "active";
+}
+
+
+@inject DropDown.IBloodBankDDL bloodBankDDL
+@inject DropDown.IDonorDDL donorDDL
+@inject DropDown.ICommonDDL CommonDDL
+<partial name="_RejectBloodRequest" />
+<partial name="_DeliveredBloodRequest" />
+<!-- start page title -->
+
+<div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+    <div>
+        <h4 class="mb-3 mb-md-0">@ViewData["Title"]  </h4>
+    </div>
+    <div class="d-flex align-items-center flex-wrap text-nowrap">
+        <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="dashboardStartDate">
+            <span class="input-group-addon bg-transparent text-danger">Select Date</span>
+            <input type="text" id="txtStartDate" class="form-control">
+        </div>
+
+
+        <div class="d-flex align-items-center flex-wrap text-nowrap">
+            <div class="input-group date datepicker   mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="">
+                <span class="input-group-addon bg-transparent"><i data-feather="filter" class=" text-danger"></i></span>
+
+                @Html.DropDownList("LocationID", await bloodBankDDL.LocationList(), "(Select Location)", htmlAttributes: new { @class = "form-control", id = "cmbLocationID" })
+
+            </div>
+        </div>
+        <div class="p-1 pl-0 d-none">
+            @Html.EditorFor(model => model.KeyW, new { htmlAttributes = new { @class = "form-control", placeholder = "Search", id = "txtKeyW", autofocus = "autofocus",  } })
+            @Html.ValidationMessageFor(model => model.KeyW, "", new { @class = "text-danger" })
+        </div>
+
+
+    </div>
+</div>
+
+<!-- end page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="mt-2 alert alert-danger  @(TempData["ErrorMessage"] == null ? "d-none" : "")">
+            @(TempData["ErrorMessage"])
+        </div>
+        <div class="mt-2 alert alert-success  @(TempData["SuccessMessage"] == null ? "d-none" : "")">
+            @(TempData["SuccessMessage"])
+        </div>
+    </div>
+</div>
+
+
+
+<div id="divLoad" class="d-flex justify-content-center mt-2 position-absolute w-100">
+    <div id="spnLoad" class="spinner-border " role="status"></div>
+</div>
+
+<div id="divRecords" class="m-0 p-0 mt-2"></div>
+
+<input type="hidden" id="txtRecordCount" value="@Model.RecordCount" />
+<input type="hidden" id="txtPageSize" value="@Model.PageSize" />
+
+
+
+@await Html.PartialAsync("_Pagination", Model.PaginationList)
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+
+    <script src="~/js/pagination.js" asp-append-version="true"></script>
+
+
+    <script title="Main">
+
+        var Page = 1;
+        var PageURL = '/Donor/BloodRequest/_MainList';
+        var params = new window.URLSearchParams(window.location.search);
+        $(document).ready(function () {
+
+            LoadPage(1);
+        });
+
+        function GetData(pageNo) {
+            var KeyW = $("#txtKeyW").val();
+
+            var LocationID = $("#cmbLocationID").val();
+            var DateTimeOfRequirement = params.has('DateTimeOfRequirement') ? params.get('DateTimeOfRequirement') : "";
+
+            Page = pageNo;
+            var PageSize = $("#txtPageSize").val();
+
+            var data = {
+                KeyW: KeyW,
+                DateTimeOfRequirement: DateTimeOfRequirement,
+                LocationID: LocationID,
+                Page: Page,
+                PageSize: PageSize
+            };
+
+            return data;
+        }
+
+
+        if ($('#dashboardStartDate').length) {
+            var date = new Date();
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDay());
+            $('#dashboardStartDate').datepicker({
+                format: "yyyy-mm-dd",
+                todayHighlight: true,
+                autoclose: true
+            });
+            var StartD = params.get('DateTimeOfRequirement');
+            if (StartD == null || StartD == '') {
+                $('#dashboardStartDate').datepicker('setDate', today);
+            }
+            else {
+                $('#dashboardStartDate').datepicker('setDate', StartD);
+            }
+
+
+        }
+
+
+    </script>
+
+
+    <script title="Search">
+
+        
+        function SearchStart() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("txtKeyW");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("tblBody");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                td1 = tr[i].getElementsByTagName("td")[1];
+
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    txtValue = txtValue + ' ' + td1.textContent || td1.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        $("#txtKeyW").on("keydown", function search(e) {
+            if (e.keyCode == 13) {
+                Search();
+            }
+        });
+
+
+
+        $("#cmbLocationID").change(function (event) {
+            var DateTimeOfRequirement = params.has('DateTimeOfRequirement') ? params.get('DateTimeOfRequirement') : "";
+            Search(DateTimeOfRequirement);
+        });
+
+        $("#dashboardStartDate").on("change", function CalDate() {
+            var DateTimeOfRequirement = $("#txtStartDate").val();
+            Search(DateTimeOfRequirement);
+
+        });
+        function Search(DateTimeOfRequirement) {
+
+            var KeyW = $("#txtKeyW").val();
+            var LocationID = $("#cmbLocationID").val();
+
+            var url = '@Url.Action("Index", "BloodRequest", new { area = "Donor" })';
+
+            var ParamPart = "&";
+            ParamPart = ParamPart + ((KeyW != "") ? '&KeyW=' + KeyW : '');
+            ParamPart = ParamPart + ((LocationID != "") ? '&LocationID=' + LocationID : '');
+            ParamPart = ParamPart + ((DateTimeOfRequirement != "") ? '&DateTimeOfRequirement=' + DateTimeOfRequirement : '');
+
+            ParamPart = ParamPart.replace("&&", "");
+
+            window.location.href = url + '?' + ParamPart;
+            event.preventDefault();
+        };
+
+    </script>
+}
+

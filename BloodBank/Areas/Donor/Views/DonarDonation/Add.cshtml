@@ -1,0 +1,518 @@
+﻿@model DonorQuestionnaire
+@{
+    ViewData["Title"] = "Add Donation Details";
+
+    ViewData["DonarDonationActive"] = "active";
+}
+@inject DropDown.IBloodBankDDL bloodBankDDL
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">@ViewData["Title"]</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group row d-none">
+                        @Html.LabelFor(model => model.ReturnURL, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.ReturnURL, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ReturnURL, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row d-none">
+                        @Html.LabelFor(model => model.QuestionnaireID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.QuestionnaireID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.QuestionnaireID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row ">
+                        @Html.LabelFor(model => model.BloodBankCentreID, htmlAttributes: new { @class = "col-4 col-form-label" })
+                        <div class="col-8">
+                            @Html.DropDownList("BloodBankCentreID", await bloodBankDDL.BloodBankCentreList(), "(Select Blood Bank)", htmlAttributes: new { @class = "", id = "cmbCategoryMainID" })
+                            @Html.ValidationMessageFor(model => model.BloodBankCentreID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-centered table-nowrap table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Answer</th>
+                                    <th>Question </th>
+                                  
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 
+                                <tr>
+                                  
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q1Prob, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q1Prob, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q1Prob, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q1Prob)</td>
+                                </tr>
+                                <tr>
+                                    
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q1Doctor, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q1Doctor, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q1Doctor, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q1Doctor)</td>
+                                </tr>
+                                <tr>
+                                   
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q1Health, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q1Health, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q1Health, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q1Health)</td>
+                                </tr>
+                                <tr>
+                                    
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q2medCond, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q2medCond, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q2medCond, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>Q4: Have you suffered from or been treated for any of the following medical conditions? <br>  &nbsp;&emsp;Heart disease,Paralysis,Diabetes,Ellipsis (Fif%),Cancer,Asthma/ lung disease,Blood diseases,Kidney disease</td>
+                                </tr>
+                                <tr>
+                                   
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q3Medication, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q3Medication, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q3Medication, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q3Medication)</td>
+                                </tr>
+                                <tr>
+                                   
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q4Surgery, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q4Surgery, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q4Surgery, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q4Surgery)</td>
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q5Heavywork, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q5Heavywork, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q5Heavywork, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q5Heavywork)</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q6Pregnant, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q6Pregnant, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q6Pregnant, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q6Pregnant)</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q7YellowFever, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q7YellowFever, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q7YellowFever, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q7YellowFever)</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q7TbTyphoid, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q7TbTyphoid, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q7TbTyphoid, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q7TbTyphoid)</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q7Treated, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q7Treated, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q7Treated, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q7Treated)</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q8Immunization, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q8Immunization, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q8Immunization, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q8Immunization)</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q8TattooAcupuncture, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q8TattooAcupuncture, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q8TattooAcupuncture, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q8TattooAcupuncture)</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q8Abroad, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q8Abroad, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q8Abroad, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q8Abroad)</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q8Prison, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q8Prison, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q8Prison, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q8Prison)</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q8Blood, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q8Blood, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q8Blood, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q8Blood)</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q8Malaria, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q8Malaria, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q8Malaria, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q8Malaria)</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q9Dengue, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q9Dengue, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q9Dengue, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q9Dengue)</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q9Fever, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q9Fever, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q9Fever, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q9Fever)</td>
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q9Teeth, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q9Teeth, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q9Teeth, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q9Teeth)</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q10Categories, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q10Categories, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q10Categories, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>Q21:Do you belong to any of the following categories?
+                                    <br>
+                                         &nbsp; &emsp;AIDS/HIV, Hepatitis B/C, multiple sexual partners, male homosexual relationship, injected drugs, prostitution,
+                                    <br>  &nbsp; &emsp;engaged in prostitution in last 12 months, or suspected of having AIDS/HIV/STI.</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q11PartnerCategory, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q11PartnerCategory, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q11PartnerCategory, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q11PartnerCategory)</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        @Html.RadioButtonFor(model => model.Q12Symptoms, "1") Yes  &nbsp;
+                                        @Html.RadioButtonFor(model => model.Q12Symptoms, "0") No
+                                        @Html.ValidationMessageFor(model => model.Q12Symptoms, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>@Html.LabelFor(model => model.Q12Symptoms)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                   @* 
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q1Prob, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q1Prob, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q1Prob, "0") No
+                            @Html.ValidationMessageFor(model => model.Q1Prob, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q1Doctor, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q1Doctor, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q1Doctor, "0") No
+                            @Html.ValidationMessageFor(model => model.Q1Doctor, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q1Health, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q1Health, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q1Health, "0") No
+                            @Html.ValidationMessageFor(model => model.Q1Health, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q2medCond, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q2medCond, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q2medCond, "0") No
+                            @Html.ValidationMessageFor(model => model.Q2medCond, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q3Medication, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q3Medication, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q3Medication, "0") No
+                            @Html.ValidationMessageFor(model => model.Q3Medication, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q4Surgery, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q4Surgery, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q4Surgery, "0") No
+                            @Html.ValidationMessageFor(model => model.Q4Surgery, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        @Html.LabelFor(model => model.Q5Heavywork, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q5Heavywork, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q5Heavywork, "0") No
+                            @Html.ValidationMessageFor(model => model.Q5Heavywork, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        @Html.LabelFor(model => model.Q6Pregnant, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q6Pregnant, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q6Pregnant, "0") No
+                            @Html.ValidationMessageFor(model => model.Q6Pregnant, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q7YellowFever, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q7YellowFever, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q7YellowFever, "0") No
+                            @Html.ValidationMessageFor(model => model.Q7YellowFever, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q7TbTyphoid, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q7TbTyphoid, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q7TbTyphoid, "0") No
+                            @Html.ValidationMessageFor(model => model.Q7TbTyphoid, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q7Treated, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q7Treated, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q7Treated, "0") No
+                            @Html.ValidationMessageFor(model => model.Q7Treated, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q8Immunization, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q8Immunization, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q8Immunization, "0") No
+                            @Html.ValidationMessageFor(model => model.Q8Immunization, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q8TattooAcupuncture, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q8TattooAcupuncture, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q8TattooAcupuncture, "0") No
+                            @Html.ValidationMessageFor(model => model.Q8TattooAcupuncture, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q8Abroad, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q8Abroad, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q8Abroad, "0") No
+                            @Html.ValidationMessageFor(model => model.Q8Abroad, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q8Blood, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q8Blood, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q8Blood, "0") No
+                            @Html.ValidationMessageFor(model => model.Q8Blood, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q8Prison, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q8Prison, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q8Prison, "0") No
+                            @Html.ValidationMessageFor(model => model.Q8Prison, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q8Malaria, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q8Malaria, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q8Malaria, "0") No
+                            @Html.ValidationMessageFor(model => model.Q8Malaria, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                       <div class="form-group">
+                        @Html.LabelFor(model => model.Q9Dengue, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q9Dengue, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q9Dengue, "0") No
+                            @Html.ValidationMessageFor(model => model.Q9Dengue, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                       <div class="form-group">
+                        @Html.LabelFor(model => model.Q9Fever, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q9Fever, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q9Fever, "0") No
+                            @Html.ValidationMessageFor(model => model.Q9Fever, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                       <div class="form-group">
+                        @Html.LabelFor(model => model.Q9Teeth, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q9Teeth, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q9Teeth, "0") No
+                            @Html.ValidationMessageFor(model => model.Q9Teeth, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q10Categories, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q10Categories, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q10Categories, "0") No
+                            @Html.ValidationMessageFor(model => model.Q10Categories, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                      <div class="form-group">
+                        @Html.LabelFor(model => model.Q11PartnerCategory, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q11PartnerCategory, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q11PartnerCategory, "0") No
+                            @Html.ValidationMessageFor(model => model.Q11PartnerCategory, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Q12Symptoms, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="">
+                            @Html.RadioButtonFor(model => model.Q12Symptoms, "1") Yes
+                            @Html.RadioButtonFor(model => model.Q12Symptoms, "0") No
+                            @Html.ValidationMessageFor(model => model.Q12Symptoms, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+                    <div class="form-group row">
+                        <div class="col-4">
+                        </div>
+                        <div class="col-8">
+                            <button type="submit" class="btn btn-danger mr-2">Submit</button>
+                            &nbsp;
+                            <a href="@Model.ReturnURL">Cancel</a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+
+    </script>
+
+}
+
+
+

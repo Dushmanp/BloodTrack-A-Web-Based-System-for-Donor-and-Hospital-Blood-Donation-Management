@@ -1,0 +1,38 @@
+﻿<div class="sidebar-body">
+    <ul class="nav">
+        <li class="nav-item nav-category">Main</li>
+        <li class="nav-item @ViewData["DashboardActive"]">
+            <a asp-area="Doctor"
+               asp-controller="Home"
+               asp-action="Index" class="nav-link">
+                <i class="link-icon" data-feather="box"></i>
+                <span class="link-title">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item nav-category">Doctor</li>
+        <li class="nav-item @ViewData["DoctorDetailsActive"]">
+            <a asp-area="Doctor"
+               asp-controller="ProfileInfo"
+               asp-action="Index"
+               class="nav-link">
+                <i class="link-icon" data-feather="users"></i>
+                <span class="link-title">Profile Detail</span>
+            </a>
+        </li>
+        <li class="nav-item @ViewData["AppointmentActive"]">
+            <a asp-area="Doctor"
+               asp-controller="Appointment"
+               asp-action="Index"
+               class="nav-link">
+                <i class="link-icon" data-feather="trello"></i>
+                <span class="link-title">Ongoing Appointment</span>
+            </a>
+        </li>
+
+
+ 
+
+
+
+    </ul>
+</div>

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<DonarDonation>
+
+@{
+    Layout = null;
+
+}
+
+<div class="table-responsive">
+    <table class="table table-centered table-nowrap table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().DonotionID)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+              
+               
+                <th>@Html.DisplayNameFor(model => model.First().BloodBagNo)</th>
+                <th>@Html.DisplayNameFor(model => model.First().DonationDate)</th>
+                <th>@Html.DisplayNameFor(model => model.First().BloodBankCentre)</th>
+
+                <th>@Html.DisplayNameFor(model => model.First().StatusText)</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody id="tblBody">
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.DonotionID" data-id="@item.DonotionID">
+                    <td>
+                        <a class="" href=" @Url.Action("ViewDetails","DonorDonation" ,new {Area = "BloodBankSystem", id = item.DonotionID })">@Html.DisplayFor(modelItem => item.DonotionID)</a>
+
+                    </td>
+                    <td class="">
+
+                        @Html.DisplayFor(modelItem => item.Name) <br>
+                        Donor ID :<a class="" href=" @Url.Action("DonorDetails","DonorDonation" ,new {Area = "BloodBankSystem", id = item.DonorID })">@Html.DisplayFor(modelItem => item.DonorID)</a>
+                        <br>
+                        Blood Type :  @Html.DisplayFor(modelItem => item.BloodType) <br>
+                        NIC : @item.NIC <br>
+                        Contact :  @item.PhoneNumber  <br>
+                        @item.GenderText (@item.Age years old)
+
+                    </td>
+                    
+                   
+                    <td>
+                        @if (item.Status == "DV")
+                        {
+                            <div class="input-group">
+                                <input type="text" id="txt_@item.DonotionID" data-id="@item.DonotionID" onkeydown="InputData(this)" class="form-control blood-bag-input" placeholder="Blood Bag No" aria-label="Blood Bag No" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button"><i class="mdi mdi-square-edit-outline"></i></button>
+                                </div>
+                            </div>
+
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.BloodBagNo)
+                        }
+                    </td>
+
+                    <td>@Html.DisplayFor(modelItem => item.DonationDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BloodBankCentre)</td>
+                    <td><span class="badge badge-@item.StatusClass">@Html.DisplayFor(modelItem => item.StatusText)</span></td>
+                    <td><label id="lbl_@item.DonotionID">(Not changed)</label></td>
+                </tr>
+            }
+        </tbody>
+
+
+
+    </table>
+     
+</div>

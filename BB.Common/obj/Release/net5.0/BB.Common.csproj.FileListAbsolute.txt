@@ -1,0 +1,12 @@
+F:\Asure Final Project\BB.Common\bin\Release\net5.0\BB.Common.deps.json
+F:\Asure Final Project\BB.Common\bin\Release\net5.0\BB.Common.dll
+F:\Asure Final Project\BB.Common\bin\Release\net5.0\BB.Common.pdb
+F:\Asure Final Project\BB.Common\obj\Release\net5.0\BB.Common.csproj.AssemblyReference.cache
+F:\Asure Final Project\BB.Common\obj\Release\net5.0\BB.Common.GeneratedMSBuildEditorConfig.editorconfig
+F:\Asure Final Project\BB.Common\obj\Release\net5.0\BB.Common.AssemblyInfoInputs.cache
+F:\Asure Final Project\BB.Common\obj\Release\net5.0\BB.Common.AssemblyInfo.cs
+F:\Asure Final Project\BB.Common\obj\Release\net5.0\BB.Common.csproj.CoreCompileInputs.cache
+F:\Asure Final Project\BB.Common\obj\Release\net5.0\BB.Common.dll
+F:\Asure Final Project\BB.Common\obj\Release\net5.0\refint\BB.Common.dll
+F:\Asure Final Project\BB.Common\obj\Release\net5.0\BB.Common.pdb
+F:\Asure Final Project\BB.Common\obj\Release\net5.0\ref\BB.Common.dll

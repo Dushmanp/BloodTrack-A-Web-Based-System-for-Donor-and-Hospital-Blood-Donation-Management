@@ -1,0 +1,66 @@
+﻿@model IEnumerable<DonarDonation>
+
+@{
+    Layout = null;
+
+}
+
+<div class="table-responsive">
+    <table class="table table-centered table-nowrap table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().DonotionID)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+                <th>Remarks</th>
+                <th>@Html.DisplayNameFor(model => model.First().BloodBankCentre)</th>
+                <th>@Html.DisplayNameFor(model => model.First().DonationDate)</th>
+                <th>@Html.DisplayNameFor(model => model.First().NextDonationDate)</th>
+                <th>@Html.DisplayNameFor(model => model.First().StatusText)</th>
+
+            </tr>
+        </thead>
+        <tbody id="tblBody">
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.DonotionID" data-id="@item.DonotionID">
+                    <td>
+                        <a class="" href=" @Url.Action("ViewDetails","Appointment" ,new {Area = "Doctor", id = item.DonotionID })">@Html.DisplayFor(modelItem => item.DonotionID)</a>
+
+                    </td>
+                    <td class="">
+
+                        @Html.DisplayFor(modelItem => item.Name) <br>
+                        Donor ID :<a class="" href=" @Url.Action("DonorDetails","Appointment" ,new {Area = "Doctor", id = item.DonorID })">@Html.DisplayFor(modelItem => item.DonorID)</a>
+                        <br>
+                        
+
+                    </td>
+                    <td>
+                        @if (item.RemarkRejected != ""  )
+                        {
+                            @Html.DisplayFor(modelItem => item.RemarkRejected) <br>
+                        }
+                        @if (item.Remark != "")
+                        {
+                            @Html.DisplayFor(modelItem => item.Remark)
+                        }
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.BloodBankCentre)
+
+                    </td>
+
+                    <td>@Html.DisplayFor(modelItem => item.DonationDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NextDonationDate)</td>
+                    <td><span class="badge badge-@item.StatusClass">@Html.DisplayFor(modelItem => item.StatusText)</span></td>
+
+                </tr>
+            }
+        </tbody>
+
+
+
+    </table>
+
+</div>

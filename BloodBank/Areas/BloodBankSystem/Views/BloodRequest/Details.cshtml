@@ -1,0 +1,174 @@
+﻿@model BloodRequestDetailView
+
+@{
+    ViewData["Title"] = "Blood Request Details";
+
+    ViewData["RequestActive"] = "active";
+
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <div id="ErrorMessage" class="mt-2 alert alert-danger  @(TempData["ErrorMessage"] == null ? "d-none" : "")">
+            @(TempData["ErrorMessage"])
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmAddRequest" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="text-primary mb-3">Patient Info</h6>
+                    <div class="form-group row">
+                        <div class="col-4 font-weight-bold">Request ID:</div>
+                        <div class="col-8">@Model.bloodRequest.BloodRequestID</div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 font-weight-bold">Patient Name:</div>
+                        <div class="col-8">@Model.bloodRequest.PatientName</div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 font-weight-bold">Age:</div>
+                        <div class="col-8">@Model.bloodRequest.PatientAge</div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 font-weight-bold">Sex:</div>
+                        <div class="col-8">@Model.bloodRequest.PatientSexText</div>
+                    </div>
+                   
+
+                    <div class="form-group row">
+                        <div class="col-4 font-weight-bold">Doctor In Charge:</div>
+                        <div class="col-8">@Model.bloodRequest.DoctorInCharge</div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 font-weight-bold">Doctor Contact:</div>
+                        <div class="col-8">@Model.bloodRequest.DoctorContact</div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 font-weight-bold">Reason of Transfusion:</div>
+                        <div class="col-8">@Model.bloodRequest.ReasonOfTransfusion</div>
+                    </div>
+
+                    <h6 class="text-primary mb-3">Hospital Info</h6>
+
+                    <div class="form-group row">
+                        <div class="col-4 font-weight-bold">Hospital:</div>
+                        <div class="col-8">@Model.bloodRequest.HospitalName</div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4 font-weight-bold">Contact:</div>
+                        <div class="col-8">@Model.bloodRequest.HPhoneNumber</div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4 font-weight-bold">Address:</div>
+                        <div class="col-8">@Model.bloodRequest.HAddress</div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4 font-weight-bold">Location:</div>
+                        <div class="col-8">@Model.bloodRequest.LocationName</div>
+                    </div>
+
+                  
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="text-primary mb-3">Blood  Details</h6>
+
+                    <div class="form-group row">
+                        <div class="col-4 font-weight-bold">Blood Group:</div>
+                        <div class="col-8">@Model.bloodRequest.BloodGroup</div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-4 font-weight-bold">Date and Time of Requirement:</div>
+                        <div class="col-8">@Model.bloodRequest.DateTimeOfRequirement.ToString("dd MMMM yyyy h:mm tt")</div>
+                    </div>
+                    @if (Model.bloodrequestDetails.WholeBloodUnit > 0)
+                    {
+                        <div class="row mb-3">
+                            <div class="col-4 font-weight-bold">Whole Blood Unit:</div>
+                            <div class="col-8">@Model.bloodrequestDetails.WholeBloodUnit</div>
+                        </div>
+                    }
+
+                    @if (Model.bloodrequestDetails.PackedCellUnit > 0)
+                    {
+                        <div class="row mb-3">
+                            <div class="col-4 font-weight-bold">Packed Cell Unit:</div>
+                            <div class="col-8">@Model.bloodrequestDetails.PackedCellUnit</div>
+                        </div>
+                    }
+
+                    @if (Model.bloodrequestDetails.FreshFrozenPlasmaUnit > 0)
+                    {
+                        <div class="row mb-3">
+                            <div class="col-4 font-weight-bold">Fresh Frozen Plasma Unit:</div>
+                            <div class="col-8">@Model.bloodrequestDetails.FreshFrozenPlasmaUnit</div>
+                        </div>
+                    }
+
+                    @if (Model.bloodrequestDetails.PlateletComponentsUnit > 0)
+                    {
+                        <div class="row mb-3">
+                            <div class="col-4 font-weight-bold">Platelet Components Unit:</div>
+                            <div class="col-8">@Model.bloodrequestDetails.PlateletComponentsUnit</div>
+                        </div>
+                    }
+
+                    @if (Model.bloodrequestDetails.SingleDonorPlateletUnit > 0)
+                    {
+                        <div class="row mb-3">
+                            <div class="col-4 font-weight-bold">Single Donor Platelet Unit:</div>
+                            <div class="col-8">@Model.bloodrequestDetails.SingleDonorPlateletUnit</div>
+                        </div>
+                    }
+
+                    @if (Model.bloodrequestDetails.CryoPoorPlasmaUnit > 0)
+                    {
+                        <div class="row mb-3">
+                            <div class="col-4 font-weight-bold">CryoPoor Plasma Unit:</div>
+                            <div class="col-8">@Model.bloodrequestDetails.CryoPoorPlasmaUnit</div>
+                        </div>
+                    }
+
+                    <div class="row mb-3">
+                        <div class="col-4 font-weight-bold">Request Status:</div>
+                        <div class="col-8">
+                            <span class="badge badge-@Model.bloodRequest.StatusClass">@Model.bloodRequest.StatusText</span>
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}
+

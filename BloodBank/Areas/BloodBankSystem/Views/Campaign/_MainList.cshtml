@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BloodDonationCampaign>
+@inject DropDown.ICommonDDL CommonDDL
+@{
+    Layout = null;
+}
+ 
+ 
+<div class="table-responsive">
+    <table class="table table-centered table-nowrap table-striped">
+        <thead>
+            <tr>
+                <th class="d-none">@Html.DisplayNameFor(model => model.First().CampaignID)</th>
+                <th>@Html.DisplayNameFor(model => model.First().OrganizerName)</th>
+                <th>@Html.DisplayNameFor(model => model.First().VerifiedBy)</th>
+         
+                <th>@Html.DisplayNameFor(model => model.First().BloodBankCentre)</th>
+                <th>@Html.DisplayNameFor(model => model.First().StartDate)</th>
+                <th>@Html.DisplayNameFor(model => model.First().EndDate)</th>
+                <th>@Html.DisplayNameFor(model => model.First().TargetAddress)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Location)</th>
+                <th>@Html.DisplayNameFor(model => model.First().ActiveStatus)</th>
+                <th style="width:70px;">Action</th>
+            </tr>
+        </thead>
+        <tbody id="tblBody">
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.CampaignID">
+                    <td class="d-none">@item.CampaignID</td>
+                    <td>@item.OrganizerName</td>
+                    <td>@item.VerifiedBy</td>
+                    <td>@item.BloodBankCentre</td>
+
+                    <td>@item.StartDate.ToString("dd MMMM yyyy")</td>
+                    <td>@item.EndDate.ToString("dd MMMM yyyy")</td>
+                    <td>@item.TargetAddress</td>
+                    <td>@item.Location</td>
+                   <td><span class="badge badge-@item.ActiveStatusClass">@item.ActiveStatusText</span></td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = item.CampaignID })" class="table-icon text-primary"><i class="mdi mdi-square-edit-outline"></i></a>
+                        <a href="javascript:void(0);" onclick="ConfirmDelete('@item.CampaignID','@Url.Action("Delete")')" class="table-icon text-danger"> <i class="mdi mdi-delete"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+ 

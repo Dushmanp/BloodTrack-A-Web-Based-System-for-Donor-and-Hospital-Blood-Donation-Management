@@ -1,0 +1,95 @@
+﻿@model IEnumerable<DonarDonation>
+
+@{
+    Layout = null;
+
+}
+
+ 
+ 
+<div class="row flex-grow">
+    @foreach (var item in Model)
+    {
+        @if (item.Status != "E" || item.DonationDate == DateTime.Now.Date)
+        {
+            <div class="col-md-4 grid-margin stretch-card ">
+
+                <div class="card text-muted-Dark bg-white" href="#" id="row_@item.DonotionID">
+                    <div class="card-header custom-card-header text-center  @(item.Status == " E" || item.DonationDate==DateTime.Now.Date ?"bg-"+@item.StatusClass:"")  text-capitalize font-weight-bold">
+                        @Html.DisplayFor(modelItem => item.DonationDate)
+
+                    </div>
+                    <div class="card-body">
+
+                        <div class="d-flex align-items-center mb-1">
+
+                            <p class="text-muted-Dark">
+                                Donation No: @Html.DisplayFor(modelItem => item.DonotionID)
+                            </p>
+                        </div>
+
+                        @if (item.NextDonationDate != null)
+                        {
+                            <div class="d-flex align-items-center mb-1">
+                                <p class="text-muted-Dark">
+
+                                    Next Donation : <span class="text-muted-Dark">@Html.DisplayFor(modelItem => item.NextDonationDate)</span>
+                                </p>
+                            </div>
+                        }
+
+                        @if (item.BloodBankCentre != null)
+                        {
+                            <div class="d-flex align-items-center mb-1 ">
+
+                                <p class="text-muted-Dark ">
+                                    Blood Bank: @Html.DisplayFor(modelItem => item.BloodBankCentre)
+                                </p>
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(item.DoctorName))
+                        {
+
+                            <div class="d-flex align-items-center mb-1 ">
+
+                                <p class="text-muted-Dark ">
+                                    Doctor: @Html.DisplayFor(modelItem => item.DoctorName)
+                                </p>
+                            </div>
+                        }
+                        <div class="d-flex align-items-center mb-1 ">
+
+                            <p class="text-muted-Dark ">
+                                Status: <span class="badge badge-@item.StatusClass">@Html.DisplayFor(modelItem => item.StatusText)</span>
+                            </p>
+                        </div>
+
+                        @if (item.NextDonationDate == null)
+                        {
+                            <div class="d-flex align-items-center mb-1">
+                                <p class="text-muted-Dark">
+                                    <br>
+                                </p>
+                            </div>
+                        }
+
+                        <div class="d-flex align-items-center justify-content-center flex-wrap text-nowrap   ">
+
+                            <a href="@Url.Action("ViewDetails" ,"DonarDonation", new {  id = @item.DonotionID })" class="btn btn-google float-right  mr-2 mb-2 mb-md-0 ">View Details </a>
+                            @if (item.TestRecordPdfFile != null)
+                            {
+                                <a href="~/Uploads/@item.TestRecordPdfFile" download class="btn btn-dark float-right  mr-2 mb-2 mb-md-0 ">Test Results</a>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        }
+
+    }
+
+</div>

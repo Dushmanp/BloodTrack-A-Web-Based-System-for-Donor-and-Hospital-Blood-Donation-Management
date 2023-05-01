@@ -1,0 +1,15 @@
+F:\Asure Final Project\BB.BloodBankLib\bin\Release\net5.0\BB.BloodBankL.deps.json
+F:\Asure Final Project\BB.BloodBankLib\bin\Release\net5.0\BB.BloodBankL.dll
+F:\Asure Final Project\BB.BloodBankLib\bin\Release\net5.0\BB.BloodBankL.pdb
+F:\Asure Final Project\BB.BloodBankLib\bin\Release\net5.0\BB.DBAccess.dll
+F:\Asure Final Project\BB.BloodBankLib\bin\Release\net5.0\BB.DBAccess.pdb
+F:\Asure Final Project\BB.BloodBankLib\obj\Release\net5.0\BB.BloodBankL.csproj.AssemblyReference.cache
+F:\Asure Final Project\BB.BloodBankLib\obj\Release\net5.0\BB.BloodBankL.GeneratedMSBuildEditorConfig.editorconfig
+F:\Asure Final Project\BB.BloodBankLib\obj\Release\net5.0\BB.BloodBankL.AssemblyInfoInputs.cache
+F:\Asure Final Project\BB.BloodBankLib\obj\Release\net5.0\BB.BloodBankL.AssemblyInfo.cs
+F:\Asure Final Project\BB.BloodBankLib\obj\Release\net5.0\BB.BloodBankL.csproj.CoreCompileInputs.cache
+F:\Asure Final Project\BB.BloodBankLib\obj\Release\net5.0\BB.BloodBankL.csproj.CopyComplete
+F:\Asure Final Project\BB.BloodBankLib\obj\Release\net5.0\BB.BloodBankL.dll
+F:\Asure Final Project\BB.BloodBankLib\obj\Release\net5.0\refint\BB.BloodBankL.dll
+F:\Asure Final Project\BB.BloodBankLib\obj\Release\net5.0\BB.BloodBankL.pdb
+F:\Asure Final Project\BB.BloodBankLib\obj\Release\net5.0\ref\BB.BloodBankL.dll

@@ -1,0 +1,173 @@
+﻿@model BloodDonationCampaignSearchView
+@{
+    ViewData["Title"] = "Blood Donation Campaign";
+
+    ViewData["CampaignActive"] = "active";
+}
+
+@inject DropDown.IBloodBankDDL bloodBankDDL
+@inject DropDown.IDonorDDL donorDDL
+@inject DropDown.ICommonDDL CommonDDL
+@*<partial name="_ConfirmDelete" />*@
+
+<!-- start page title -->
+<div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+    <div>
+        <h4 class="mb-3 mb-md-0">@ViewData["Title"]  (@Model.RecordCount)</h4>
+    </div>
+    <div class="d-flex align-items-center flex-wrap text-nowrap">
+        <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="dashboardStartDate">
+            <span class="input-group-addon bg-transparent text-danger">Select Date</span>
+            <input type="text" id="txtStartDate" class="form-control">
+        </div>
+
+
+        <div class="d-flex align-items-center flex-wrap text-nowrap">
+            <div class="input-group date datepicker   mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="">
+                <span class="input-group-addon bg-transparent"><i data-feather="filter" class=" text-danger"></i></span>
+
+                @Html.DropDownList("LocationID", await bloodBankDDL.LocationList(), "(Select Location)", htmlAttributes: new { @class = "form-control", id = "cmbLocationID" })
+
+            </div>
+        </div>
+       <div class="p-1 pl-0 d-none">
+        @Html.EditorFor(model => model.KeyW, new { htmlAttributes = new { @class = "form-control", placeholder = "Search", id = "txtKeyW", autofocus = "autofocus",  } })
+        @Html.ValidationMessageFor(model => model.KeyW, "", new { @class = "text-danger" })
+    </div>
+
+
+    </div>
+</div>
+<!-- end page title -->
+ 
+ 
+
+    <div id="divLoad" class="d-flex justify-content-center mt-2 position-absolute w-100">
+        <div id="spnLoad" class="spinner-border " role="status"></div>
+    </div>
+
+    <div id="divRecords" class="m-0 p-0 mt-2"></div>
+
+    <input type="hidden" id="txtRecordCount" value="@Model.RecordCount" />
+    <input type="hidden" id="txtPageSize" value="@Model.PageSize" />
+ 
+
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-body d-flex justify-content-center">
+        <img id="modalImage" class="img-fluid mx-auto" style="max-width: 100%" src="" alt="Full screen image">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+@await Html.PartialAsync("_Pagination", Model.PaginationList)
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+
+    <script src="~/js/pagination.js" asp-append-version="true"></script>
+   
+   
+
+    <script title="Main">
+
+        var Page = 1;
+        var PageURL = '/Donor/Campaign/_MainList';
+        var params = new window.URLSearchParams(window.location.search);
+        $(document).ready(function () {
+
+            LoadPage(1);
+
+           
+        });
+
+        function showImageModal(campaignID) {
+            // Get the image source
+            var imgSrc = document.getElementById("img_" + campaignID).src;
+
+            // Set the source of the modal image
+            document.getElementById("modalImage").src = imgSrc;
+
+            // Show the modal
+            $('#imageModal').modal('show');
+        }
+
+
+        function GetData(pageNo) {
+            var KeyW = $("#txtKeyW").val();
+            var LocationID = $("#cmbLocationID").val();
+            var StartDate = params.has('StartDate') ? params.get('StartDate') : "";
+            Page = pageNo;
+            var PageSize = $("#txtPageSize").val();
+
+            var data = {
+                KeyW: KeyW,
+                StartDate: StartDate,
+                LocationID: LocationID,
+                Page: Page,
+                PageSize: PageSize
+            };
+
+            return data;
+        }
+        if ($('#dashboardStartDate').length) {
+            var date = new Date();
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDay());
+            $('#dashboardStartDate').datepicker({
+                format: "yyyy-mm-dd",
+                todayHighlight: true,
+                autoclose: true
+            });
+            var StartD = params.get('StartDate');
+            if (StartD == null || StartD == '') {
+                $('#dashboardStartDate').datepicker('setDate', today);
+            }
+            else {
+                $('#dashboardStartDate').datepicker('setDate', StartD);
+            }
+
+
+        }
+
+    </script>
+
+
+    <script title="Search">
+
+        $("#cmbLocationID").change(function (event) {
+            var StartDate = params.has('StartDate') ? params.get('StartDate') : "";
+            Search(StartDate);
+        });
+
+        $("#dashboardStartDate").on("change", function CalDate() {
+            var StartDate = $("#txtStartDate").val();
+            Search(StartDate);
+
+        });
+        function Search(StartDate) {
+
+            var KeyW = $("#txtKeyW").val();
+            var LocationID = $("#cmbLocationID").val();
+             
+            var url = '@Url.Action("Index", "Campaign", new { area = "Donor" })';
+
+            var ParamPart = "&";
+            ParamPart = ParamPart + ((KeyW != "") ? '&KeyW=' + KeyW : '');
+            ParamPart = ParamPart + ((StartDate != "") ? '&StartDate=' + StartDate : '');
+            ParamPart = ParamPart + ((LocationID != "") ? '&LocationID=' + LocationID : '');
+           
+            ParamPart = ParamPart.replace("&&", "");
+
+            window.location.href = url + '?' + ParamPart;
+            event.preventDefault();
+        };
+
+    </script>
+}
